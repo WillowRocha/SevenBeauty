@@ -1,0 +1,8 @@
+Métodos Dao
+O Objeto ficará responsável pelo salvamento de todas informações, inclusive de outro objetos. Ex.:
+
+Agendamento tem: Cliente, Profissional e List<Servico>.
+
+Para Cliente e Profissional será salvo apenas o Id do respectivo na tabela de agendamento.
+
+Para a lista de Serviços, será salvo na tabela de Agendamento x Servico com os respectivos Id, que será <Id do agendamento, Id do Serviço da iteração atual da lista>.
