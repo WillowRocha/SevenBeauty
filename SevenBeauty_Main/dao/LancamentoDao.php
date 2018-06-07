@@ -1,6 +1,4 @@
 <?php
-include_once("../model/Agendamento.php");
-include_once("../model/Servico.php");
 
 class LancamentoDao {
 	

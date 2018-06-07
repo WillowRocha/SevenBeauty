@@ -26,4 +26,4 @@ const SITE_NAME = "7 Beauty";
 const VERDADEIRO = "1";
 const FALSO = "0";
 const USER_NOT_FOUND = "Usuário não encontrado";
-const ROUTE = "http://localhost/php/SevenBeauty/SevenBeauty_Main/";
+const ROUTE = "http://localhost/php/SevenBeauty/";

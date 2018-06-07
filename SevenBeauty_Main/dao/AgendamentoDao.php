@@ -1,8 +1,4 @@
 <?php
-include_once("../model/Cliente.php");
-include_once("../model/Profissional.php");
-include_once("../model/Servico.php");
-include_once("DBConnection.php");
 
 class AgendamentoDao {
 

@@ -1,7 +1,4 @@
 <?php
-include_once("Cliente.php");
-include_once("Profissional.php");
-include_once("Servico.php");
 
 class Agendamento {
 	

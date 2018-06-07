@@ -1,5 +1,4 @@
 <?php
-include_once("FormaPagamento.php");
 
 class Cartao extends FormaPagamento {
 	

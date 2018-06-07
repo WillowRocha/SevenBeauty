@@ -1,5 +1,4 @@
 <?php
-include_once("Funcionario.php");
 
 class Profissional extends Funcionario {
 	

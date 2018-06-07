@@ -1,7 +1,4 @@
 <?php
-include_once("Dao.php");
-include_once("DBConnection.php");
-include_once("../model/Usuario.php");
 
 class UsuarioDao extends Dao {
 	

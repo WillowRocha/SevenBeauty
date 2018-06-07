@@ -1,5 +1,4 @@
 <?php
-include_once("Funcionario.php");
 
 class Gerente extends Funcionario {
 	

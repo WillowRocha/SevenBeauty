@@ -16,11 +16,8 @@
     <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <?php 
-        const HOME = "home.php";
-        const SCHEDULLER = "scheduller.php";
-        const CONTACT = "contact.php";
-        const ABOUT = "about.php";
-        const LOGIN = "login.php";
+        include_once("constants.php");
+        include_once("model/Usuario.php");
 
         // atribui a variável paginaLink apenas o nome da página
         $paginaLink = basename($_SERVER['SCRIPT_NAME']);
@@ -37,17 +34,17 @@
                 $active = "";
             ?>
         >
-          <a class="nav-link" href= <?php echo '"'.HOME.'"'; ?> >Início</a>
+          <a class="nav-link" href= <?php echo '"'.HOME.'"'; ?>>Início</a>
         </li>
         <li 
             <?php 
-              if(!strcasecmp($paginaLink, SCHEDULLER))
+              if(!strcasecmp($paginaLink, SERVICES))
                   $active = "active";
                 echo 'class="nav-item '.$active.'"';
                 $active = "";
             ?>
           >
-          <a class="nav-link" href= <?php echo '"'.SCHEDULLER.'"'; ?> >Agenda</a>
+          <a class="nav-link" href= <?php echo '"'.SERVICES.'"'; ?>>Serviços</a>
         </li>
         <li 
           <?php 
@@ -57,7 +54,7 @@
                 $active = "";
             ?>
         >
-          <a class="nav-link" href= <?php echo '"'.CONTACT.'"'; ?> >Contato</a>
+          <a class="nav-link" href= <?php echo '"'.CONTACT.'"'; ?>>Contato</a>
         </li>
         <li 
           <?php 
@@ -67,8 +64,20 @@
                 $active = "";
             ?>
         >
-          <a class="nav-link" href= <?php echo '"'.ABOUT.'"'; ?> ">Sobre</a>
+          <a class="nav-link" href= <?php echo '"'.ABOUT.'"'; ?>>Sobre</a>
+        <!--Fazer if para ver se tem permissões para tal-->
         </li>
+        <li 
+          <?php 
+              if(!strcasecmp($paginaLink, ADMIN))
+                  $active = "active";
+                echo 'class="nav-item '.$active.'"';
+                $active = "";
+            ?>
+        >
+          <a class="nav-link" href= <?php echo '"'.ADMIN.'"'; ?>>Área Adminitrativa</a>
+        </li>
+
       </ul>
       
       <!-- Right -->
@@ -84,20 +93,33 @@
           </a>
         </li>
         <?php 
-          if(!strcasecmp($paginaLink, LOGIN)){
+          echo "<br><br><br><br> Usuário = ";
+          //echo $_SESSION['current_user'];
+          echo " = Fim usuário <br><br><br><br>";
+          //die();
+
+          if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])){
             echo '<li class="nav-item">
-                    <a href="register.php" class="nav-link border border-light rounded">
-                      Registre-se <i class="fa fa-sign-in mr-2"></i>
+                    <a href="UserInfo.php" class="nav-link border border-light rounded">
+                      Bem vindo, '.$_SESSION['current_user']->senha.' <i class="fa fa-sign-in mr-2"></i>
                     </a>
-                  </li>
-            ';
+                  </li>';
           } else {
-            echo '<li class="nav-item">
-                    <a href="login.php" class="nav-link border border-light rounded">
-                      Login <i class="fa fa-sign-in mr-2"></i>
-                    </a>
-                  </li>
+            if(!strcasecmp($paginaLink, LOGIN)){
+              echo '<li class="nav-item">
+                      <a href="register.php" class="nav-link border border-light rounded">
+                        Registre-se <i class="fa fa-sign-in mr-2"></i>
+                      </a>
+                    </li>
               ';
+            } else {
+              echo '<li class="nav-item">
+                      <a href="login.php" class="nav-link border border-light rounded">
+                        Login <i class="fa fa-sign-in mr-2"></i>
+                      </a>
+                    </li>
+                ';
+            }
           }
         ?>
       </ul>

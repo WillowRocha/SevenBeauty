@@ -2,49 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>7 Beauty</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
-  <!-- Your custom styles (optional) -->
-  <link href="css/style.min.css" rel="stylesheet">
-  <style type="text/css">
-    html,
-    body,
-    header,
-    .view {
-      height: 100%;
-    }
-
-    @media (max-width: 740px) {
-      html,
-      body,
-      header,
-      .view {
-        height: 1000px;
-      }
-    }
-
-    @media (min-width: 800px) and (max-width: 850px) {
-      html,
-      body,
-      header,
-      .view {
-        height: 650px;
-      }
-    }
-    @media (min-width: 800px) and (max-width: 850px) {
-              .navbar:not(.top-nav-collapse) {
-                  background: #1C2331!important;
-              }
-          }
-  </style>
+ <?php 
+  session_start();
+  include_once("head.php");
+ ?>
 </head>
 
 <body>
@@ -96,7 +57,7 @@
               <div class="card-body">
 
                 <!-- Form -->
-                <form name="" action="">
+                <form name="" action="service/LoginService.php" method="POST">
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Acesse sua conta</strong>
@@ -105,15 +66,27 @@
 
                   <div class="md-form">
                     <i class="fa fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
+                    <input type="text" id="form3" class="form-control" name="username">
                     <label for="form3">Usuário</label>
                   </div>
                   <div class="md-form">
                     <i class="fa fa-lock prefix grey-text"></i>
-                    <input type="password" id="form2" class="form-control">
+                    <input type="password" id="form2" class="form-control" name="password">
                     <label for="form2">Senha</label>
                   </div>
+                  <div class="md-form">
+                    <?php
+                      //session_start();
+                      if(isset($_GET['sucess']) && !$_GET['sucess']){
+                        echo "Senha incorreta!";
+                      }
+                      if(isset($_GET['userNotFound']) && $_GET['userNotFound'] && !isset($_GET['sucess'])){
+                        echo "Usuário não encontrado!";
+                      }
 
+                    ?>  
+                  </div>
+                  
                   <div class="text-center">
                     <button class="btn btn-grey">Entrar</button>
                     <hr>

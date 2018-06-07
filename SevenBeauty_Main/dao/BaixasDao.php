@@ -1,6 +1,4 @@
 <?php
-include_once("../model/Lancamento.php");
-include_once("../model/FormaPagamento.php");
 
 abstract class BaixasDao {
 	

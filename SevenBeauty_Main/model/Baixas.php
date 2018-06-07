@@ -1,6 +1,4 @@
 <?php
-include_once("Lancamento.php");
-include_once("FormaPagamento.php");
 
 abstract class Baixas {
 	

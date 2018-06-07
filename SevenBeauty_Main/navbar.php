@@ -1,3 +1,4 @@
+
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
@@ -16,9 +17,6 @@
     <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <?php 
-        include_once("constants.php");
-        include_once("model/Usuario.php");
-
         // atribui a variável paginaLink apenas o nome da página
         $paginaLink = basename($_SERVER['SCRIPT_NAME']);
         $active = ""
@@ -92,16 +90,12 @@
             <i class="fa fa-twitter"></i>
           </a>
         </li>
-        <?php 
-          echo "<br><br><br><br> Usuário = ";
-          //echo $_SESSION['current_user'];
-          echo " = Fim usuário <br><br><br><br>";
-          //die();
+        <?php
 
           if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])){
             echo '<li class="nav-item">
                     <a href="UserInfo.php" class="nav-link border border-light rounded">
-                      Bem vindo, '.$_SESSION['current_user']->senha.' <i class="fa fa-sign-in mr-2"></i>
+                      Bem vindo, '.$_SESSION['current_user']->getUsuario().' <i class="fa fa-sign-in mr-2"></i>
                     </a>
                   </li>';
           } else {

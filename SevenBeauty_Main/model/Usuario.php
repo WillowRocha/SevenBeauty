@@ -1,10 +1,4 @@
 <?php
-if(!(@include "Pessoa.php") === false){
-	include_once("Pessoa.php");
-};
-if(!(@include "../dao/UsuarioDao.php") === false){
-	include_once("../dao/UsuarioDao.php");
-}
 
 class Usuario {
 	
@@ -42,5 +36,4 @@ class Usuario {
 		$dao = new UsuarioDao();
 		$dao->save($this->$id, $this->nome_usuario, $this->senha);
 	}
-
 }

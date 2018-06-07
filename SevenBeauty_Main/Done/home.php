@@ -2,25 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>7 Beauty</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
-  <!-- Your custom styles (optional) -->
-  <link href="css/style.min.css" rel="stylesheet">
-  <style type="text/css">
-    @media (min-width: 800px) and (max-width: 850px) {
-            .navbar:not(.top-nav-collapse) {
-                background: #1C2331!important;
-            }
-        }
-  </style>
+  <?php include_once("head.php") ?>
 </head>
 
 <body>
@@ -232,7 +214,7 @@
 
           <!--Second column-->
           <div class="col-md-4 flex-center">
-            <img src="https://i.ebayimg.com/00/s/NzAwWDQ4MA==/z/d-kAAOSwXeJauU6S/$_86.JPG" alt="MDB Magazine Template displayed on iPhone" class="z-depth-0 img-fluid">
+            <img src="img/beauty/manicure_pedicure.jpg" alt="MDB Magazine Template displayed on iPhone" class="z-depth-0 img-fluid">
           </div>
           <!--/Second column-->
 

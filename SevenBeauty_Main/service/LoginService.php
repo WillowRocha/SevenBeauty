@@ -1,7 +1,5 @@
 <?php
-include_once("../dao/UsuarioDao.php");
-include_once("../constants.php");
-
+require_once("../includes.php");
 class LoginService {
 	
 	private $nome_usuario;
@@ -28,18 +26,17 @@ class LoginService {
 		echo "retornou NFound\n";
 		return USER_NOT_FOUND;
 	}
-
 }
 
 $var = new LoginService();
 $status = $var->autenticate();
 if(!strcmp($status, VERDADEIRO)){
 	$_SESSION['logged'] = VERDADEIRO;
-	header("location: ../home.php");
+	header("location: ".ROUTE."home.php");
 } else if(!strcmp($status, FALSO)){
-	header("location: ../login.php?sucess=0");
+	header("location: ".ROUTE."login.php?sucess=0");
 } else if(!strcmp($status, USER_NOT_FOUND)){
-	header("location: ../login.php?userNotFound=1");
+	header("location: ".ROUTE."login.php?userNotFound=1");
 } else {
 	echo "Algo de errado não está certo!";
 }

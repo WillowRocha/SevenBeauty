@@ -1,6 +1,4 @@
 <?php
-include_once("Agendamento.php");
-include_once("Servico.php");
 
 class Lancamento {
 	
