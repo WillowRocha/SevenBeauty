@@ -1,50 +1,51 @@
 <?php
 
-class ServicoDao {
-	
-	private $nome;
-	private $categorias; //Array
-	private $preco;
-	private $duracao;
-	private $ativo;
-
-	function __construct($nome, $categorias, $preco, $duracao, $ativo){
-		$this->nome = $nome;
-		$this->categorias = $categorias;
-		$this->preco = $preco;
-		$this->duracao = $duracao;
-		$this->ativo = $ativo;
+class ServicoDao extends Dao {
+		
+	function __construct(){
+		parent::__construct("servicos");
 	}
 
-	function getNome(){
-		return $this->nome;
-	}
-	function getCategoriaServico(){
-		return $this->categorias;
-	}
-	function getPreco(){
-		return $this->preco;
-	}
-	function getDuracao(){
-		return $this->duracao;
-	}
-	function getAtivo(){
-		return $this->ativo;
+	function save($servico){
+		$id = $servico->getId();
+		$nome = addslashes($servico->getNome());
+		$id_categoria_servico = $servico->getCategoria()->getId();
+		$preco = addslashes($servico->getPreco());
+		$duracao = addslashes($servico->getDuracao());
+		$ativo = $servico->getAtivo();
+		if(!$id){
+			if($this->buscaIdPorPropriedade("nome", $nome)){
+				return ALREADY_EXISTS;
+			}
+			$query = "INSERT INTO ".$this->nome_tabela." (nome, id_categoria_servico, preco, duracao, ativo) VALUES ('".$nome."', ".$id_categoria_servico.", ".$preco.", ".$duracao.", ".$ativo.");";
+		} else {
+			$id = $servico->getId();
+			if($this->novoNomeValido($servico, $nome)){
+				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' id_categoria_servico = ".$id_categoria_servico." preco = ".$preco." duracao = ".$duracao." ativo = ".$ativo." WHERE id = ".$id.";";
+			} else {
+				return ALREADY_EXISTS;
+			}
+		}
+		return $this->db->insertOrUpdate($query);
 	}
 
-	function setNome($nome){
-		$this->nome = $nome;
+	function novoNomeValido($servico, $novoNome){
+		$mudouNome = ($this->buscaById($servico->getId())->getNome() != $novoNome);
+		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
+		if($mudouNome && $novoNomeExiste){
+			return FALSO;
+		}
+		return VERDADEIRO;
 	}
-	function setCategoriaServico($categorias){
-		$this->categorias = $categorias;
-	}
-	function setPreco($preco){
-		$this->preco = $preco;
-	}
-	function setDuracao($duracao){
-		$this->duracao = $duracao;
-	}
-	function setAtivo($ativo){
-		$this->ativo = $ativo;
+
+	function fetchObjeto($row){
+		$id = $row['id'];
+		$nome = $row['nome'];
+		$cat_class = new CategoriaServicoDao();
+		$categoria_servico = $cat_class->buscaById($row['id_categoria_servico']);
+		$preco = $row['preco'];
+		$duracao = $row['duracao'];
+		$ativo = $row['ativo'];
+		return new Servico($id, $nome, $categoria_servico, $preco, $duracao, $ativo);
 	}
 }

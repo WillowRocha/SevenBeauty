@@ -2,20 +2,25 @@
 
 class Fornecedor {
 	
+	private $id;
 	private $nomeEmpresa;
 	private $nomeConsultor;
 	private $telefone;
-	private $categoriaProduto;
+	private $categoriaProdutos;
 	private $ativo;
 
-	function __construct($nomeEmpresa, $nomeConsultor, $telefone, $categoriaProduto, $ativo){
+	function __construct($id, $nomeEmpresa, $nomeConsultor, $telefone, $categoriaProdutos, $ativo){
+		$this->id = $id;
 		$this->nomeEmpresa = $nomeEmpresa;
 		$this->nomeConsultor = $nomeConsultor;
 		$this->telefone = $telefone;
-		$this->categoriaProduto = $categoriaProduto;
+		$this->categoriaProdutos = $categoriaProdutos;
 		$this->ativo = $ativo;
 	}
 
+	function getId(){
+		return $this->id;
+	}
 	function getNomeEmpresa(){
 		return $this->nomeEmpresa;
 	}
@@ -25,13 +30,16 @@ class Fornecedor {
 	function getTelefone(){
 		return $this->telefone;
 	}
-	function getCategoriaProduto(){
-		return $this->categoriaProduto;
+	function getCategoriaProdutos(){
+		return $this->categoriaProdutos;
 	}
 	function getAtivo(){
 		return $this->ativo;
 	}
 
+	function setId($id){
+		$this->id = $id;
+	}
 	function setNomeEmpresa($nomeEmpresa){
 		$this->nomeEmpresa = $nomeEmpresa;
 	}
@@ -41,8 +49,8 @@ class Fornecedor {
 	function setTelefone($unidadeMedida){
 		$this->telefone = $telefone;
 	}
-	function setCategoriaProduto($categoriaProduto){
-		$this->categoriaProduto = $categoriaProduto;
+	function setCategoriaProdutos($categoriaProdutos){
+		$this->categoriaProdutos = $categoriaProdutos;
 	}
 	function setAtivo($ativo){
 		$this->ativo = $ativo;

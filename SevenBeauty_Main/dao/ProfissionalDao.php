@@ -1,19 +1,108 @@
 <?php
 
-class ProfissionalDao {
+class ProfissionalDao extends Dao {
 	
-	private $listaServicos; //Servico.php
-
-	function __construct($nome, $telefone, $endereco, $nascimento, $ativo, $listaServicos){
-		super($nome, $telefone, $endereco, $nascimento, $ativo);
-		$this->listaServicos = $listaServicos;
+	function __construct(){
+		parent::__construct("profissionais_servicos");
 	}
 
-	function getListaServicos(){
-		return $this->listaServicos;
+	function save($profissional){
+		$id = $profissional->getId();
+		$idPessoa = $profissional->getIdPessoa();
+		$nome = $profissional->getNome();
+		$sobrenome = $profissional->getSobrenome();
+		$telefone = $profissional->getTelefone();
+		$endereco = $profissional->getEndereco();
+		$nascimento = $profissional->getNascimento();
+		$rg = $profissional->getRG();
+		$cpf = $profissional->getCPF();
+		$cargo = $profissional->getCargo();
+		$ativo = $profissional->getAtivo();
+		$usuario = $profissional->getUsuario();
+		
+		$daoFuncionario = new FuncionarioDao();
+		$result = $daoFuncionario->save(new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo));
+		//TODO: Fazer verificacao em Pessoa para poder inserir Clientes e Funcionarios com a mesma pessoa, considerando que é uma atualizacaoo se o RG e CPF forem iguais.
+		if(!strcmp($result,ERRO_INSERCAO_FUNCIONARIO) || !strcmp($result, ERRO_INSERCAO_PESSOA) || !strcmp($result, PESSOA_JA_EXISTE)) return $result;
+
+		if($result){
+			$listaServicos = $profissional->getListaServicos();
+			$count = 0;
+			foreach ($listaServicos as $servico) {
+				$idServico = $servico->getId();
+				$existe = $this->buscaByIdComposto($id, $idServico);
+				if(!$existe){
+					$query = "INSERT INTO ".$this->nome_tabela." (id_funcionario, id_servico) VALUES (".$id.", ".$idServico.");";
+					$status =  $this->db->insertOrUpdate($query);
+					if(!$status) return FALSE;
+					$count++;
+				}
+			}
+			return $count;
+		}
+		return ERRO_INSERCAO_PROFISSIONAL;
 	}
 
-	function setListaServicos($listaServicos){
-		$this->listaServicos = $listaServicos;
+	function buscaByIdComposto($idFuncionario, $idServico){
+		$query = "SELECT * FROM ".$this->nome_tabela." WHERE id_funcionario = ".$idFuncionario." AND id_servico = ".$idServico.";";
+		$result = $this->db->selectOne($query);
+		if($result){
+			return VERDADEIRO;
+		}
+		return FALSE;
 	}
+	
+	function buscaById($id){
+		$query = "SELECT * FROM funcionarios WHERE id = ".$id.";";
+		$result = $this->db->selectOne($query);
+		if($result){
+			return $this->fetchObjeto($result);
+		}
+		return FALSE;
+	}
+
+	function fetchObjeto($row){
+		$id = $row['id_funcionario'];
+
+		$dao = new FuncionarioDao();
+		$funcionario = $dao->buscaById($id);
+		if(!$funcionario) return FALSO;
+		
+		$idPessoa = $function->getIdPessoa();
+		$nome = $funcionario->getNome();
+		$sobrenome = $funcionario->getSobrenome();
+		$telefone = $funcionario->getTelefone();
+		$endereco = $funcionario->getEndereco();
+		$nascimento = $funcionario->getNascimento();
+		$rg = $funcionario->getRG();
+		$cpf = $funcionario->getCPF();
+		$cargo = $funcionario->getCargo();
+		$ativo = $funcionario->getAtivo();
+
+		$listaServicos = $this->buscaListaServicos($id);
+
+		return new Profissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos);
+	}
+
+	function buscaListaServicos($idFuncionario){
+		$query = $this->buscaTodosPorPropriedade("id_funcionario", $idFuncionario);
+		$result = $this->db->selectMultiple($query);
+		if($result){
+			$num_rows = mysqli_num_rows($result);
+			$servicos = [];
+			for($i=0; $i < $num_rows; $i++){
+	            $row = mysqli_fetch_array($result);
+	            $dao = new Servico();
+	            $servico = $dao->buscaById($result['id_servico']);
+	            array_push($servicos, $servicos);
+	        }
+	        return $servicos;
+    	}
+		return FALSO;
+	}
+
+	
+
+	
+	
 }

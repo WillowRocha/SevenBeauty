@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
   <br><br><br>
   <!--Main layout-->
   <main >
@@ -161,7 +161,7 @@
   </main>
   <!--Main layout-->
 
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

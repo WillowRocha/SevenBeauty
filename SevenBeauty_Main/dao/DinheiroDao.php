@@ -1,8 +1,5 @@
 <?php
 
-class DinheiroDao {
+class DinheiroDao extends Dao {
 
-	function __construct($nome){
-		super($nome);
-	}
 }

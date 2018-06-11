@@ -4,7 +4,7 @@
   <div class="container">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="home.php">
+    <a class="navbar-brand" <?php echo 'href="'.HOME.'"' ?>>
       <strong>Seven Beauty</strong>
     </a>
 
@@ -81,34 +81,38 @@
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons">
         <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">
+          <a href="https://www.facebook.com/" class="nav-link" target="_blank">
             <i class="fa fa-facebook"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link" target="_blank">
+          <a href="https://twitter.com/" class="nav-link" target="_blank">
             <i class="fa fa-twitter"></i>
           </a>
         </li>
         <?php
-
           if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])){
             echo '<li class="nav-item">
-                    <a href="UserInfo.php" class="nav-link border border-light rounded">
-                      Bem vindo, '.$_SESSION['current_user']->getUsuario().' <i class="fa fa-sign-in mr-2"></i>
-                    </a>
-                  </li>';
+                    <a href="'.USER_INFO.'" class="nav-link border border-light rounded">
+                      Bem vindo, '.$_SESSION['current_user'].
+                    '</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="'.LOGOUT.'" class="nav-link border border-light rounded">
+                        Sair
+                      </a>
+                    </li>';
           } else {
             if(!strcasecmp($paginaLink, LOGIN)){
               echo '<li class="nav-item">
-                      <a href="register.php" class="nav-link border border-light rounded">
+                      <a href="'.REGISTER.'" class="nav-link border border-light rounded">
                         Registre-se <i class="fa fa-sign-in mr-2"></i>
                       </a>
                     </li>
               ';
             } else {
               echo '<li class="nav-item">
-                      <a href="login.php" class="nav-link border border-light rounded">
+                      <a href="'.LOGIN.'" class="nav-link border border-light rounded">
                         Login <i class="fa fa-sign-in mr-2"></i>
                       </a>
                     </li>

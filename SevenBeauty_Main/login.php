@@ -4,13 +4,13 @@
 <head>
  <?php 
   //session_start();
-  include_once("head.php");
+  require_once("head.php");
  ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('img/beauty/capa01.jpg'); background-repeat: no-repeat; background-size: cover;">
@@ -40,7 +40,7 @@
               tenha acesso a conteúdos exclusivos, como agendamentos online. </strong>
             </p>
             <br>
-            <a href="home.php" class="btn btn-grey btn-lg">Página Inicial
+            <a <?php echo 'href="'.HOME.'"' ?> class="btn btn-grey btn-lg">Página Inicial
               <i class="fa fa-home ml-2"></i>
             </a>
 

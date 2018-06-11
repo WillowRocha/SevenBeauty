@@ -23,12 +23,16 @@ Class DBConnection{
 		return TRUE;
 	}
 
-	function select($query){
-		$result = mysqli_query($this->link, $query);
+	function selectOne($query){
+		$result = $this->selectMultiple($query);
 		if($result){
 			$result = mysqli_fetch_array($result);
 		}
 		return $result;
+	}
+
+	function selectMultiple($query){
+		return mysqli_query($this->link, $query);
 	}
 
 	function insertOrUpdate($query){

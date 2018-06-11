@@ -1,22 +1,22 @@
 <?php
 
-class CategoriaServicoDao extends Dao {
+class CargoDao extends Dao {
 	
 	function __construct(){
-		parent::__construct("categorias_servico");
+		parent::__construct("cargos");
 	}
 
-	function save($categoria){
-		$id = $categoria->getId();
-		$nome = addslashes($categoria->getNome());
+	function save($cargo){
+		$id = $cargo->getId();
+		$nome = addslashes($cargo->getNome());
 		if(!$id){
 			if($this->buscaIdPorPropriedade("nome", $nome)){
 				return ALREADY_EXISTS;
 			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome) VALUES ('".$nome."')";
 		} else {
-			$id = $categoria->getId();
-			if($this->novoNomeValido($categoria, $nome)){
+			$id = $cargo->getId();
+			if($this->novoNomeValido($cargo, $nome)){
 				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
 			} else {
 				return ALREADY_EXISTS;
@@ -25,8 +25,8 @@ class CategoriaServicoDao extends Dao {
 		return $this->db->insertOrUpdate($query);
 	}
 
-	function novoNomeValido($categoria, $novoNome){
-		$mudouNome = ($this->buscaById($categoria->getId())->getNome() != $novoNome);
+	function novoNomeValido($cargo, $novoNome){
+		$mudouNome = ($this->buscaById($cargo->getId())->getNome() != $novoNome);
 		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
 		if($mudouNome && $novoNomeExiste){
 			return FALSO;
@@ -37,6 +37,6 @@ class CategoriaServicoDao extends Dao {
 	function fetchObjeto($row){
 		$id = $row['id'];
 		$nome = stripslashes($row['nome']);
-		return new CategoriaServico($id, $nome);
+		return new Cargo($id, $nome);
 	}
 }

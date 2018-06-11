@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php 
+    require_once("head.php"); 
+    require_once("constants.php");?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view" style="background-image: url('img/beauty/capa02.jpg'); background-repeat: no-repeat; background-size: cover;">
@@ -30,7 +32,7 @@
           que está no mercado desde 2014, fazendo a cabeça das pessoas</strong>
         </p>
 
-        <a href="about.php" class="btn btn-outline-white btn-lg">Sobre Seven Beauty
+        <a <?php echo 'href="'.ABOUT.'"' ?> class="btn btn-outline-white btn-lg">Sobre Seven Beauty
           <i class="fa fa-angle-double-right ml-2"></i>
         </a>
       </div>
@@ -79,10 +81,10 @@
             </p>
 
             <!-- CTA -->
-            <a target="_blank" href="#" class="btn btn-grey btn-md">Agende agora
+            <a target="_blank" <?php echo 'href="'.SCHEDULLER.'"' ?> class="btn btn-grey btn-md">Agende agora
               <i class="fa fa-clock-o ml-1"></i>
             </a>
-            <a target="_blank" href="#" class="btn btn-grey btn-md">Veja mais serviços
+            <a target="_blank" <?php echo 'href="'.SERVICES.'"' ?> class="btn btn-grey btn-md">Veja mais serviços
               <i class="fa fa-scissors ml-1"></i>
             </a>
 
@@ -120,10 +122,10 @@
             </p>
 
             <!-- CTA -->
-            <a target="_blank" href="#" class="btn btn-grey btn-md">Agende agora
+            <a target="_blank" <?php echo 'href="'.SCHEDULLER.'"' ?> class="btn btn-grey btn-md">Agende agora
               <i class="fa fa-clock-o ml-1"></i>
             </a>
-            <a target="_blank" href="#" class="btn btn-grey btn-md">Veja mais serviços
+            <a target="_blank" <?php echo 'href="'.SERVICES.'"' ?> class="btn btn-grey btn-md">Veja mais serviços
               <i class="fa fa-scissors ml-1"></i>
             </a>
 
@@ -371,7 +373,7 @@
   </main>
   <!--Main layout-->
 
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

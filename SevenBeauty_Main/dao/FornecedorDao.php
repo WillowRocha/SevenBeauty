@@ -1,50 +1,51 @@
 <?php
 
-class FornecedorDao {
+class FornecedorDao extends Dao {
 	
-	private $nomeEmpresa;
-	private $nomeConsultor;
-	private $telefone;
-	private $categoriaProduto;
-	private $ativo;
-
-	function __construct($nomeEmpresa, $nomeConsultor, $telefone, $categoriaProduto, $ativo){
-		$this->nomeEmpresa = $nomeEmpresa;
-		$this->nomeConsultor = $nomeConsultor;
-		$this->telefone = $telefone;
-		$this->categoriaProduto = $categoriaProduto;
-		$this->ativo = $ativo;
+	function __construct(){
+		parent::__construct("fornecedores");
 	}
 
-	function getNomeEmpresa(){
-		return $this->nomeEmpresa;
-	}
-	function getNomeConsultor(){
-		return $this->nomeConsultor;
-	}
-	function getTelefone(){
-		return $this->telefone;
-	}
-	function getCategoriaProduto(){
-		return $this->categoriaProduto;
-	}
-	function getAtivo(){
-		return $this->ativo;
+	function save($fornecedor){
+		$id = $fornecedor->getId();
+		$nomeEmpresa = addslashes($fornecedor->getNomeEmpresa());
+		$nomeConsultor = addslashes($fornecedor->getNomeConsultor());
+		$telefone = addslashes($fornecedor->getTelefone());
+		$id_categoria_produtos = $fornecedor->getCategoriaProdutos()->getId();
+		$ativo = $fornecedor->getAtivo();
+		if(!$id){
+			if($this->buscaIdPorPropriedade("nome_empresa", $nomeEmpresa)){
+				return ALREADY_EXISTS;
+			}
+			$query = "INSERT INTO ".$this->nome_tabela." (nome_empresa, nome_consultor, telefone, id_categoria_produtos, ativo) VALUES ('".$nomeEmpresa."', '".$nomeConsultor."', '".$telefone."', ".$id_categoria_produtos.", ".$ativo.");";
+		} else {
+			$id = $fornecedor->getId();
+			if($this->novoNomeValido($fornecedor, $nomeEmpresa)){
+				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nomeEmpresa."', nome_consultor = '".$nomeConsultor."', telefone = '".$telefone."', id_categoria_produtos = ".$id_categoria_produtos.", ativo = ".$ativo." WHERE id = ".$id.";";
+			} else {
+				return ALREADY_EXISTS;
+			}
+		}
+		return $this->db->insertOrUpdate($query);
 	}
 
-	function setNomeEmpresa($nomeEmpresa){
-		$this->nomeEmpresa = $nomeEmpresa;
+	function novoNomeValido($fornecedor, $novoNome){
+		$mudouNome = ($this->buscaById($fornecedor->getId())->getNome() != $novoNome);
+		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
+		if($mudouNome && $novoNomeExiste){
+			return FALSO;
+		}
+		return VERDADEIRO;
 	}
-	function setNomeConsultor($nomeConsultor){
-		$this->nomeConsultor = $nomeConsultor;
-	}
-	function setTelefone($unidadeMedida){
-		$this->telefone = $telefone;
-	}
-	function setCategoriaProduto($categoriaProduto){
-		$this->categoriaProduto = $categoriaProduto;
-	}
-	function setAtivo($ativo){
-		$this->ativo = $ativo;
+
+	function fetchObjeto($row){
+		$id = stripslashes($row['id']);
+		$nomeEmpresa = stripslashes($row['nome_empresa']);
+		$nomeConsultor = stripslashes($row['nome_consultor']);
+		$telefone = stripslashes($row['telefone']);
+		$cat_class = new CategoriaProdutoDao();
+		$categoria_produtos = $cat_class->buscaById($row['id_categoria_produtos']);
+		$ativo = $row['ativo'];
+		return new Fornecedor($id, $nomeEmpresa, $nomeConsultor, $telefone, $categoria_produtos, $ativo);
 	}
 }

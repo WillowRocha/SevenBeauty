@@ -3,20 +3,20 @@
 class Usuario {
 	
 	private $id;
-	private $nome_usuario;
+	private $nome;
 	private $senha;
 
-	function __construct($id, $nome_usuario, $senha){
+	function __construct($id, $nome, $senha){
 		$this->id = $id;
-		$this->nome_usuario = $nome_usuario;
+		$this->nome = $nome;
 		$this->senha = $senha;
 	}
 
 	function getId(){
 		return $this->id;
 	}
-	function getNomeUsuario(){
-		return $this->nome_usuario;
+	function getNome(){
+		return $this->nome;
 	}
 	function getSenha(){
 		return $this->senha;
@@ -25,8 +25,8 @@ class Usuario {
 	function setId($id){
 		$this->id = $id;
 	}
-	function setNomeUsuario($nome_usuario){
-		$this->nome_usuario = $nome_usuario;
+	function setNome($nome){
+		$this->nome = $nome;
 	}
 	function setSenha($senha){
 		$this->senha = $senha;
@@ -34,6 +34,6 @@ class Usuario {
 	
 	function save(){
 		$dao = new UsuarioDao();
-		$dao->save($this->$id, $this->nome_usuario, $this->senha);
+		$dao->save($this->$id, $this->nome, $this->senha);
 	}
 }

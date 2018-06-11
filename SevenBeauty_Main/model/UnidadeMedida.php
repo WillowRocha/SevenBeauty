@@ -1,6 +1,6 @@
 <?php
 
-class CategoriaServico {
+class UnidadeMedida {
 	
 	private $id;
 	private $nome;

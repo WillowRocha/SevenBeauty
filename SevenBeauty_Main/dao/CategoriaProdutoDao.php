@@ -1,9 +1,9 @@
 <?php
 
-class CategoriaServicoDao extends Dao {
+class CategoriaProdutoDao extends Dao {
 	
 	function __construct(){
-		parent::__construct("categorias_servico");
+		parent::__construct("categorias_produto");
 	}
 
 	function save($categoria){
@@ -37,6 +37,6 @@ class CategoriaServicoDao extends Dao {
 	function fetchObjeto($row){
 		$id = $row['id'];
 		$nome = stripslashes($row['nome']);
-		return new CategoriaServico($id, $nome);
+		return new CategoriaProduto($id, $nome);
 	}
 }

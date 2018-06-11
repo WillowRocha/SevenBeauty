@@ -1,66 +1,64 @@
 <?php
 
-class ProdutoDao {
+class ProdutoDao extends Dao {
 	
-	private $nome;
-	private $quantidade;
-	private $unidadeMedida;
-	private $categoria;
-	private $codigoBarras;
-	private $estoqueMinimo;
-	private $ativo;
-
-	function __construct($nome, $quantidade, $unidadeMedida, $categoria, $codigoBarras, $estoqueMinimo, $ativo){
-		$this->nome = $nome;
-		$this->quantidade = $quantidade;
-		$this->unidadeMedida = $unidadeMedida;
-		$this->categoria = $categoria;
-		$this->codigoBarras = $codigoBarras;
-		$this->estoqueMinimo = $estoqueMinimo;
-		$this->ativo = $ativo;
+	function __construct(){
+		parent::__construct("produtos");
 	}
 
-	function getNome(){
-		return $this->nome;
-	}
-	function getQuantidade(){
-		return $this->quantidade;
-	}
-	function getUnidadeMedida(){
-		return $this->unidadeMedida;
-	}
-	function getCategoria(){
-		return $this->categoria;
-	}
-	function getCodigoBarras(){
-		return $this->codigoBarras;
-	}
-	function getEstoqueMinimo(){
-		return $this->estoqueMinimo;
-	}
-	function getAtivo(){
-		return $this->ativo;
+	function save($produto){
+		$codigoBarras = $produto->getCodigoBarras();
+		if(!$codigoBarras)
+			return CODIGO_BARRAS_INVALIDO;
+		$nome = addslashes($produto->getNome());
+		$quantidade = addslashes($produto->getQuantidade());
+		$id_unidade_medida = $produto->getUnidadeMedida()->getId();
+		$id_categoria_produto = $produto->getCategoria()->getId();
+		$estoque_minimo = addslashes($produto->getEstoqueMinimo());
+		$ativo = $produto->getAtivo();
+		
+		$existe = $this->buscaByCodigoBarras($codigoBarras);
+		if(!$existe){
+			$query = "INSERT INTO ".$this->nome_tabela." (codigo_barras, nome, quantidade, id_unidade_medida, id_categoria_produto, estoque_minimo, ativo) VALUES (".$codigoBarras.", '".$nome."', ".$quantidade.", ".$id_unidade_medida.", ".$id_categoria_produto.", ".$estoque_minimo.", ".$ativo.");";
+		} else {
+			$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."', quantidade = ".$quantidade.", id_unidade_medida = ".$id_unidade_medida.", id_categoria_produto = ".$id_categoria_produto.", estoque_minimo= ".$estoque_minimo.", ativo = ".$ativo." WHERE codigo_barras = ".$codigoBarras.";";
+		}
+		return $this->db->insertOrUpdate($query);
 	}
 
-	function setNome($nome){
-		$this->nome = $nome;
+	function buscaByCodigoBarras($codigoBarras){
+		$query = $this->buscaPorIdQuery($codigoBarras);
+		$result = $this->db->selectOne($query);
+		if($result){
+			return $this->fetchProduto($result);
+		}
+		return FALSE;
 	}
-	function setQuantidade($quantidade){
-		$this->quantidade = $quantidade;
+
+	function fetchObjeto($row){
+		$codigoBarras = $row['codigo_barras'];
+		$nome = $row['nome'];
+		$quantidade = $row['quantidade'];
+		$unidade_class = new UnidadeMedidaDao();
+		$unidade_medida = $unidade_class->buscaById($row['id_unidade_medida']);
+		$cat_class = new CategoriaProdutoDao();
+		$categoria_produto = $cat_class->buscaById($row['id_categoria_produto']);
+		$estoque_minimo = $row['estoque_minimo'];
+		$ativo = $row['ativo'];
+		return new Produto($codigoBarras, $nome, $quantidade, $unidade_medida, $categoria_produto, $estoque_minimo, $ativo);
 	}
-	function setUnidadeMedida($unidadeMedida){
-		$this->unidadeMedida = $unidadeMedida;
+
+	//Override
+	function buscaPorIdQuery($codigoBarras){
+		return "SELECT * FROM ".$this->nome_tabela." WHERE codigo_barras = ".$codigoBarras.";";
 	}
-	function setCategoria($categoria){
-		$this->categoria = $categoria;
-	}
-	function setCodigoBarras($codigoBarras){
-		$this->codigoBarras = $codigoBarras;
-	}
-	function setEstoqueMinimo($estoqueMinimo){
-		$this->estoqueMinimo = $estoqueMinimo;
-	}
-	function setAtivo($ativo){
-		$this->ativo = $ativo;
+	//Override
+	function buscaIdPorPropriedade($propriedade, $valor){
+		$query = "SELECT codigo_barras FROM ".$this->nome_tabela." WHERE ".$propriedade ." = '".$valor."';";
+		$result = $this->db->selectOne($query);
+		if($result){
+			return $result['codigo_barras'];
+		}
+		return FALSO;
 	}
 }

@@ -1,5 +1,5 @@
 <?php 
-include_once("constants.php");
+require_once("constants.php");
 
 $paginaLink = basename($_SERVER['SCRIPT_NAME']);
 

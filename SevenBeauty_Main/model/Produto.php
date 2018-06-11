@@ -2,20 +2,20 @@
 
 class Produto {
 	
+	private $codigoBarras; //ID
 	private $nome;
 	private $quantidade;
 	private $unidadeMedida;
 	private $categoria;
-	private $codigoBarras;
 	private $estoqueMinimo;
 	private $ativo;
 
-	function __construct($nome, $quantidade, $unidadeMedida, $categoria, $codigoBarras, $estoqueMinimo, $ativo){
+	function __construct($codigoBarras, $nome, $quantidade, $unidadeMedida, $categoria, $estoqueMinimo, $ativo){
+		$this->codigoBarras = $codigoBarras;
 		$this->nome = $nome;
 		$this->quantidade = $quantidade;
 		$this->unidadeMedida = $unidadeMedida;
 		$this->categoria = $categoria;
-		$this->codigoBarras = $codigoBarras;
 		$this->estoqueMinimo = $estoqueMinimo;
 		$this->ativo = $ativo;
 	}

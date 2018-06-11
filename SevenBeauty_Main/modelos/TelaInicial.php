@@ -25,7 +25,7 @@
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/93.jpg'); background-repeat: no-repeat; background-size: cover;">

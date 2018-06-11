@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <?php include_once("head.php") ?>
+    <?php require_once("head.php") ?>
 </head>
 
 <body>
 
     <!--Main Navigation-->
     <header>
-        <?php include_once("navbar.php") ?>
+        <?php require_once("navbar.php") ?>
     </header>
     <!--Main Navigation-->
 
@@ -77,7 +77,7 @@
                         <p>
                             <strong>Um vídeo com apenas algumas minutos, que vai fazer você ter certeza de que aqui é o lugar certo.</strong>
                         </p>
-                        <a href="scheduller.php" class="btn btn-primary btn-md">Agende seu horário
+                        <a <?php echo 'href="'.SCHEDULLER.'"' ?> class="btn btn-primary btn-md">Agende seu horário
                             <i class="fa fa-play ml-2"></i>
                         </a>
                     </div>
@@ -93,7 +93,7 @@
     </main>
     <!--Main layout-->
 
-    <?php include_once("footer.php") ?>
+    <?php require_once("footer.php") ?>
 
     <!-- SCRIPTS -->
     <!-- JQuery -->

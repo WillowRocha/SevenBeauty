@@ -1,6 +1,6 @@
 <?php
 
-class CategoriaServico {
+class Cargo {
 	
 	private $id;
 	private $nome;

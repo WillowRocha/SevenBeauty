@@ -2,6 +2,7 @@
 
 class Lancamento {
 	
+	private $id;
 	private $agendamento; //Agendamento.php
 	private $servico; //Servico.php
 	private $precoTotal;
@@ -9,7 +10,8 @@ class Lancamento {
 	private $tipoDesconto; // % ou $$
 	private $finalizado;
 
-	function __construct($agendamento, $servico, $precoTotal, $desconto, $tipoDesconto, $finalizado){
+	function __construct($id, $agendamento, $servico, $precoTotal, $desconto, $tipoDesconto, $finalizado){
+		$this->id = $id;
 		$this->agendamento = $agendamento;
 		$this->servico = $servico;
 		$this->precoTotal = $precoTotal;
@@ -18,6 +20,9 @@ class Lancamento {
 		$this->finalizado = $finalizado;
 	}
 
+	function getId(){
+		return $this->id;
+	}
 	function getAgendamento(){
 		return $this->agendamento;
 	}
@@ -37,6 +42,9 @@ class Lancamento {
 		return $this->finalizado;
 	}
 
+	function setId($id){
+		$this->id = $id;
+	}
 	function setAgendamento($agendamento){
 		$this->agendamento = $agendamento;
 	}

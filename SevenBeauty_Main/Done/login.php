@@ -4,13 +4,13 @@
 <head>
  <?php 
   session_start();
-  include_once("head.php");
+  require_once("head.php");
  ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('img/beauty/capa01.jpg'); background-repeat: no-repeat; background-size: cover;">

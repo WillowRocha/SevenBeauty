@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view" style="background-image: url('img/beauty/capa02.jpg'); background-repeat: no-repeat; background-size: cover;">
@@ -30,7 +30,7 @@
           que está no mercado desde 2014, fazendo a cabeça das pessoas</strong>
         </p>
 
-        <a href="about.php" class="btn btn-outline-white btn-lg">Sobre Seven Beauty
+        <a <?php echo 'href="'.ABOUT.'"' ?> class="btn btn-outline-white btn-lg">Sobre Seven Beauty
           <i class="fa fa-angle-double-right ml-2"></i>
         </a>
       </div>
@@ -371,7 +371,7 @@
   </main>
   <!--Main layout-->
 
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

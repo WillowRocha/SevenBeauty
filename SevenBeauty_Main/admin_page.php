@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
 <body style="background-image: url('img/beauty/admin_background.jpg');  background-size: cover;">
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!--Main layout-->
   <main class="mt-5 pt-4">
@@ -418,7 +418,7 @@
   </main>
   <!--Main layout-->
 
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

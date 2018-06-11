@@ -2,41 +2,45 @@
 require_once("../includes.php");
 class LoginService {
 	
-	private $nome_usuario;
+	private $nome;
 	private $senha;
 	private $dao;
 
 	function __construct(){
-		$this->nome_usuario = $_POST['username'];
+		$this->nome = $_POST['username'];
 		$this->senha = $_POST['password'];
 		$this->dao = new UsuarioDao();
 	}
 
 	function autenticate(){
-		$usuario = $this->dao->buscaUsuarioByNomeUsuario($this->nome_usuario);
+		$usuario = $this->dao->buscaUsuarioById($this->dao->buscaIdPorPropriedade("nome", $this->nome));
 		if($usuario){
 			if(!strcmp($usuario->getSenha(), $this->senha)){
 				session_start();
-				$_SESSION['current_user'] = $usuario;
+				$_SESSION['current_user'] = ucfirst($usuario->getNomeUsuario());
 				return VERDADEIRO;
 			}
-			echo "retornou false\n";
 			return FALSO;
 		}
-		echo "retornou NFound\n";
 		return USER_NOT_FOUND;
 	}
 }
 
 $var = new LoginService();
 $status = $var->autenticate();
+$page = "";
+$get = "";
 if(!strcmp($status, VERDADEIRO)){
 	$_SESSION['logged'] = VERDADEIRO;
-	header("location: ".ROUTE."home.php");
-} else if(!strcmp($status, FALSO)){
-	header("location: ".ROUTE."login.php?sucess=0");
-} else if(!strcmp($status, USER_NOT_FOUND)){
-	header("location: ".ROUTE."login.php?userNotFound=1");
+	$page = HOME;
 } else {
-	echo "Algo de errado não está certo!";
+	$page = LOGIN;
+	if(!strcmp($status, FALSO)){
+		$get = "?sucess=0";
+	} else if(!strcmp($status, USER_NOT_FOUND)){
+		$get = "?userNotFound=1";
+	} else {
+		echo "Algo de errado não está certo!";
+	}
 }
+header("location: ".ROUTE.$page.$get);

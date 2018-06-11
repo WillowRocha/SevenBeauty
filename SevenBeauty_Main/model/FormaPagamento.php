@@ -2,6 +2,7 @@
 
 abstract class FormaPagamento {
 	
+	private $id;
 	private $nome;
 
 	function __construct($nome){

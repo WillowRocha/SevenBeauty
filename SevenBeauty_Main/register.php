@@ -1,46 +1,41 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
-<body>
+<body style="background: url('img/beauty/capa04.jpg'); background-color: #1c2331; background-repeat: no-repeat; background-size: cover;">
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
-  <!-- Full Page Intro -->
-  <div class="view full-page-intro" style="background-image: url('img/beauty/capa04.jpg'); background-repeat: no-repeat; background-size: cover;">
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
 
-    <!-- Mask & flexbox options-->
-    <div class="mask rgba-black-light d-flex justify-content-left align-items-center">
+      <!--Grid row-->
+      <div class="row">
 
-      <!-- Content -->
-      <div class="container">
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
 
-        <!--Grid row-->
-        <div class="row wow fadeIn">
-          <!--Grid column-->
-          <div class="col-xl-8 col-lg-8 col-md-12">
+          <!--Card-->
+          <div class="card">
 
-            <!--Card-->
-            <div class="card">
-
-              <!--Card content-->
-              <div class="card-body">
+            <!--Card content-->
+            <div class="card-body">
 
                 <!-- Form -->
-                <fform name="">
+                <form name="" <?php echo 'action="service/RegisterService.php"' ?>>
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Registrar</strong>
-                  </h3>
-                  <hr>
+                  </h3> 
 
                   <!--Grid row-->
                   <div class="row">
 
                     <!--Grid column-->
-                    <div class="col-4 mb-2">
+                    <div class="col-5 mb-2">
 
                       <!--firstName-->
                       <div class="md-form ">
@@ -52,7 +47,7 @@
                     <!--Grid column-->
 
                     <!--Grid column-->
-                    <div class="col-md-8 mb-2">
+                    <div class="col-7 mb-2">
 
                       <!--lastName-->
                       <div class="md-form">
@@ -69,7 +64,7 @@
                   <!--Grid row-->
                   <div class="row">
                     <!--Grid column-->
-                    <div class="col-6">
+                    <div class="col-md-6 col-sm-12">
                       <!--Username-->
                       <div class="md-form input-group pl-0 mb-5">
                         <div class="input-group-prepend">
@@ -79,7 +74,7 @@
                       </div>
                     </div>
                     <!--Grid column-->
-                    <div class="col-6">
+                    <div class="col-md-6 col-sm-12">
                       <!--email-->
                       <div class="md-form mb-5">
                         <input type="text" id="email" class="form-control" placeholder="exemplo@examplo.com">
@@ -106,23 +101,19 @@
                         <label for="address" class="">Bairro</label>
                       </div>
                     </div>
-                      <div class="col-4">
+                    <div class="col-4">
                       <!--Cidade-->
                       <div class="md-form mb-5">
                         <input type="text" id="city" class="form-control" placeholder="Porto Alegre">
                         <label for="address" class="">Cidade</label>
                       </div>
                     </div>
-                  
                   </div>
-
                   <!--telephone-->
                   <div class="md-form mb-5">
                     <input type="text" id="telephone" class="form-control" placeholder="(51) 99999-9999">
                     <label for="address-2" class="">Telefone/Celular</label>
                   </div>
-
-                  <hr>
 
                   <div class="md-form mb-5">
                     <input type="text" id="birthday" class="form-control" placeholder="dd/mm/aaaa">
@@ -134,24 +125,24 @@
                     <label for="address-2" class="">Local de Trabalho</label>
                   </div>
 
-                  <hr class="mb-4">
                   <button class="btn btn-grey btn-lg btn-block" type="submit">Registrar</button>
                 </form>
                 <!-- Form -->
               </div>
-            </div>
-            <!--/.Card-->
-          </div>
-          <!--Grid column-->
+
+        
+
         </div>
-        <!--Grid row-->
+        <!--Grid column-->
+
       </div>
-      <!-- Content -->
+      <!--Grid row-->
+
     </div>
-    <!-- Mask & flexbox options-->
-  </div>
-  <!-- Full Page Intro -->
-  <?php include_once("footer.php") ?>
+  </main>
+  <!--Main layout-->
+
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

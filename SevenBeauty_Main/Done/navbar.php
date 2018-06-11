@@ -16,8 +16,8 @@
     <!-- Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <?php 
-        include_once("constants.php");
-        include_once("model/Usuario.php");
+        require_once("constants.php");
+        require_once("model/Usuario.php");
 
         // atribui a variável paginaLink apenas o nome da página
         $paginaLink = basename($_SERVER['SCRIPT_NAME']);

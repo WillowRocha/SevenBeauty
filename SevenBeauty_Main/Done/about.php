@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <?php include_once("head.php") ?>
+    <?php require_once("head.php") ?>
 </head>
 
 <body>
 
     <!--Main Navigation-->
     <header>
-        <?php include_once("navbar.php") ?>
+        <?php require_once("navbar.php") ?>
     </header>
     <!--Main Navigation-->
 
@@ -93,7 +93,7 @@
     </main>
     <!--Main layout-->
 
-    <?php include_once("footer.php") ?>
+    <?php require_once("footer.php") ?>
 
     <!-- SCRIPTS -->
     <!-- JQuery -->

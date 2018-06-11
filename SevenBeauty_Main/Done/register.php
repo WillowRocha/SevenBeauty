@@ -1,12 +1,12 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
 
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('img/beauty/capa04.jpg'); background-repeat: no-repeat; background-size: cover;">
@@ -151,7 +151,7 @@
     <!-- Mask & flexbox options-->
   </div>
   <!-- Full Page Intro -->
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->

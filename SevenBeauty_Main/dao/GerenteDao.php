@@ -1,8 +1,6 @@
 <?php
 
-class GerenteDao {
+class GerenteDao extends Dao {
 	
-	function __construct($nome, $telefone, $endereco, $nascimento, $ativo, $cargoFuncao, $RG, $CPF){
-		super($nome, $telefone, $endereco, $nascimento, $ativo, $cargoFuncao, $RG, $CPF);
-	}
+	
 }

@@ -1,35 +1,35 @@
 <?php
 
-abstract class Funcionario extends Pessoa {
+class Funcionario extends Pessoa {
 	
-	private $cargoFuncao;
-	private $RG;
-	private $CPF;
+	private $idPessoa;
+	private $usuario; // Usuario();
+	private $cargo; //Cargo();
 
-	function __construct($nome, $telefone, $endereco, $nascimento, $ativo, $cargoFuncao, $RG, $CPF){
-		super($nome, $telefone, $endereco, $nascimento, $ativo);
-		$this->cargoFuncao = $cargoFuncao;
-		$this->RG = $RG;
-		$this->CPF = $CPF;
-	}
-
-	function getCargoFuncao(){
-		return $this->cargoFuncao;
-	}
-	function getRG(){
-		return $this->RG;
-	}
-	function getCPF(){
-		return $this->CPF;
+	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo){
+		parent::__construct($id, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo);
+		$this->idPessoa = $idPessoa;
+		$this->usuario = $usuario;
+		$this->cargo = $cargo;
 	}
 
-	function setCargoFuncao($cargoFuncao){
-		$this->cargoFuncao = $cargoFuncao;
+	function getIdPessoa(){
+		return $this->idPessoa;
 	}
-	function setRG($RG){
-		$this->RG = $RG;
+	function getUsuario(){
+		return $this->usuario;
 	}
-	function setCPF($CPF){
-		$this->CPF = $CPF;
+	function getCargo(){
+		return $this->cargo;
+	}
+
+	function setIdPessoa($idPessoa){
+		$this->idPessoa = $idPessoa;
+	}
+	function setUsuario($usuario){
+		$this->usuario = $usuario;
+	}
+	function setCargo($cargo){
+		$this->cargo = $cargo;
 	}
 }

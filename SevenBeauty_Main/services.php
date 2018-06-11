@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <?php include_once("head.php") ?>
+  <?php require_once("head.php") ?>
 </head>
 
 <body>
 
-  <?php include_once("navbar.php") ?>
+  <?php require_once("navbar.php") ?>
   <br><br><br>
   <!--Main layout-->
   <main >
@@ -73,7 +73,7 @@
 
               <!--Card image-->
               <div class="view overlay">
-                <img src="http://clayr.info/images5/0118/corte-cabelo-feminino-medio-2018/corte-cabelo-feminino-medio-2018-06.jpg" class="card-img-top" alt="">
+                <img src="img/beauty/services/service1.jpg" class="card-img-top" alt="">
                 <a>
                   <div class="mask rgba-white-slight"></div>
                 </a>
@@ -161,7 +161,7 @@
   </main>
   <!--Main layout-->
 
-  <?php include_once("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
