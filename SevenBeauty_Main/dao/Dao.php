@@ -28,7 +28,7 @@ class Dao {
 		$query = "UPDATE ".$this->nome_tabela." SET ".$coluna." = ".$boolean." WHERE id = ".$id.";";
 		return $this->db->insertOrUpdate($query);
 	}
-	function buscaTodosPorPropriedade($propriedade, $valor){
+	function buscaPorPropriedade($propriedade, $valor){
 		return "SELECT * FROM ".$this->nome_tabela." WHERE ".$propriedade ." = '".$valor."';";
 	}
 	function ultimoIdInserido($status){

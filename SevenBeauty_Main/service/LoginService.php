@@ -13,11 +13,11 @@ class LoginService {
 	}
 
 	function autenticate(){
-		$usuario = $this->dao->buscaUsuarioById($this->dao->buscaIdPorPropriedade("nome", $this->nome));
+		$usuario = $this->dao->buscaById($this->dao->buscaIdPorPropriedade("nome", $this->nome));
 		if($usuario){
 			if(!strcmp($usuario->getSenha(), $this->senha)){
 				session_start();
-				$_SESSION['current_user'] = ucfirst($usuario->getNomeUsuario());
+				$_SESSION['current_user'] = ucfirst($usuario->getNome());
 				return VERDADEIRO;
 			}
 			return FALSO;

@@ -2,8 +2,11 @@
 
 class ProfissionalDao extends Dao {
 	
+	private $nome_tabela_aux;
+
 	function __construct(){
-		parent::__construct("profissionais_servicos");
+		parent::__construct("funcionarios");
+		$this->$nome_tabela_aux = "profissionais_servicos";
 	}
 
 	function save($profissional){
@@ -32,7 +35,7 @@ class ProfissionalDao extends Dao {
 				$idServico = $servico->getId();
 				$existe = $this->buscaByIdComposto($id, $idServico);
 				if(!$existe){
-					$query = "INSERT INTO ".$this->nome_tabela." (id_funcionario, id_servico) VALUES (".$id.", ".$idServico.");";
+					$query = "INSERT INTO ".$this->nome_tabela_aux." (id_funcionario, id_servico) VALUES (".$id.", ".$idServico.");";
 					$status =  $this->db->insertOrUpdate($query);
 					if(!$status) return FALSE;
 					$count++;
@@ -44,7 +47,7 @@ class ProfissionalDao extends Dao {
 	}
 
 	function buscaByIdComposto($idFuncionario, $idServico){
-		$query = "SELECT * FROM ".$this->nome_tabela." WHERE id_funcionario = ".$idFuncionario." AND id_servico = ".$idServico.";";
+		$query = "SELECT * FROM ".$this->nome_tabela_aux." WHERE id_funcionario = ".$idFuncionario." AND id_servico = ".$idServico.";";
 		$result = $this->db->selectOne($query);
 		if($result){
 			return VERDADEIRO;
@@ -52,15 +55,6 @@ class ProfissionalDao extends Dao {
 		return FALSE;
 	}
 	
-	function buscaById($id){
-		$query = "SELECT * FROM funcionarios WHERE id = ".$id.";";
-		$result = $this->db->selectOne($query);
-		if($result){
-			return $this->fetchObjeto($result);
-		}
-		return FALSE;
-	}
-
 	function fetchObjeto($row){
 		$id = $row['id_funcionario'];
 
@@ -85,7 +79,7 @@ class ProfissionalDao extends Dao {
 	}
 
 	function buscaListaServicos($idFuncionario){
-		$query = $this->buscaTodosPorPropriedade("id_funcionario", $idFuncionario);
+		$query = "SELECT * FROM ".$this->nome_tabela_aux." WHERE id_funcionario = ".$idFuncionario.";";
 		$result = $this->db->selectMultiple($query);
 		if($result){
 			$num_rows = mysqli_num_rows($result);
@@ -99,10 +93,5 @@ class ProfissionalDao extends Dao {
 	        return $servicos;
     	}
 		return FALSO;
-	}
-
-	
-
-	
-	
+	}	
 }

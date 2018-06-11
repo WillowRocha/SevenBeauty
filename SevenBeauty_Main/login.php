@@ -10,7 +10,12 @@
 
 <body>
 
-  <?php require_once("navbar.php") ?>
+  <?php 
+    require_once("navbar.php") ;
+    if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO)){
+      header("location: ".ROUTE.HOME);
+    }
+  ?>
 
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('img/beauty/capa01.jpg'); background-repeat: no-repeat; background-size: cover;">

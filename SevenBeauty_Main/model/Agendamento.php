@@ -5,7 +5,7 @@ class Agendamento {
 	private $id;
 	private $cliente; //Cliente.php
 	private $profissional; //Profissional.php
-	private $listaServicos; //Servicos.php
+	private $servico; //Servicos.php
 	private $horaInicial;
 	private $horaFinal;
 	private $ativo;
@@ -27,8 +27,8 @@ class Agendamento {
 	function getProfissional(){
 		return $this->profissional;
 	}
-	function getListaServicos(){
-		return $this->listaServicos;
+	function getServico(){
+		return $this->servico;
 	}
 	function getHoraInicial(){
 		return $this->horaInicial;
@@ -49,8 +49,8 @@ class Agendamento {
 	function setProfissional($profissional){
 		$this->profissional = $profissional;
 	}
-	function setListaServicos($listaServicos){
-		$this->listaServicos = $listaServicos;
+	function setServico($servico){
+		$this->servico = $servico;
 	}
 	function setHoraInicial($horaInicial){
 		$this->horaInicial = $horaInicial;

@@ -62,7 +62,7 @@ Class Foo {
 
 	function insereCargoTeste(){
 		$dao = new CargoDao();
-		$model = new Cargo(0, "Cabeleireira");
+		$model = new Cargo(0, "Manicure");
 		$result =  $dao->save($model);
 		echo "<br>Result: ". $result. "<br>";
 	}
@@ -124,6 +124,18 @@ Class Foo {
 		$result = $dao->save($profissional);
 		echo "<br>Result: ". $result. "<br>";
 	}
+
+	function insereGerenteTeste(){
+		$dao = new GerenteDao();
+		$daoCargo = new CargoDao();
+		$id_cargo = $daoCargo->buscaIdPorPropriedade("nome", "Manicure");
+		$cargo = $daoCargo->buscaById($id_cargo);
+
+		$gerente = new Gerente(0, 1, "Willow", "Rocha", "+55 (51) 9 1234-4321", "Orfana, 555, Porto Alegre - RS", "1997-02-19", "1234567890", "012.456.789-99", $cargo, new Usuario(1,"willow","pass"), ATIVO);
+		$result = $dao->save($gerente);
+		echo "<br>Result: ". $result. "<br>";
+	}
+
 }
 
 $foo = new Foo();
@@ -136,7 +148,8 @@ $foo = new Foo();
 //$foo->trasFornecedoresTeste();
 //$foo->insereClienteTeste();
 //$foo->insereCargoTeste();
-$foo->insereProfissionalTeste();
+//$foo->insereProfissionalTeste();
+//$foo->insereGerenteTeste();
 
 echo "Nada";
 

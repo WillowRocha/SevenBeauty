@@ -2,10 +2,11 @@
 
 class Cartao extends FormaPagamento {
 	
+	private $
 	private $numeroCartao;
 
-	function __construct($nome, $numeroCartao){
-		super($nome);
+	function __construct($id, $nome, $numeroCartao){
+		super($id, $nome);
 		$this->numeroCartao = $numeroCartao;
 	}
 

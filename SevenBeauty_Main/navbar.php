@@ -19,7 +19,7 @@
       <?php 
         // atribui a variável paginaLink apenas o nome da página
         $paginaLink = basename($_SERVER['SCRIPT_NAME']);
-        $active = ""
+        $active = "";
       ?>
 
       <!-- Left -->

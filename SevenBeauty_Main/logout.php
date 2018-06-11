@@ -5,9 +5,9 @@
 		echo "entrou no if";
 		session_destroy();
 		sleep(2);
-		header("location:".ROUTE.HOME);
+		header("location:".ROUTE.LOGIN);
 		die();
 	}
-	header("location:".ROUTE.LOGIN);
+	header("location:".ROUTE.HOME);
 
 	
