@@ -37,6 +37,7 @@ const ERRO_INSERCAO_FUNCIONARIO = "Erro ao inserir Funcionário!";
 const ERRO_INSERCAO_PROFISSIONAL = "Erro ao inserir Profissional!";
 const ATUALIZOU = "Atualizou!";
 const ATIVO = 1;
+const ESTORNADO = 1;
 const PESSOA_JA_EXISTE = "Pessoa já existe!";
 const FUNCIONARIO_JA_EXISTE = "Funcionário já existe!";
 const PROFISSIONAL_JA_EXISTE = "Profissional já existe!";

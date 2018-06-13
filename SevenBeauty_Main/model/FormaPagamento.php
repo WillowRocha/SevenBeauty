@@ -1,11 +1,12 @@
 <?php
 
-abstract class FormaPagamento {
+class FormaPagamento {
 	
 	private $id;
 	private $nome;
 
-	function __construct($nome){
+	function __construct($id, $nome){
+		$this->id = $id;
 		$this->nome = $nome;
 	}
 
@@ -15,5 +16,11 @@ abstract class FormaPagamento {
 
 	function setNome($nome){
 		$this->nome = $nome;
+	}
+	function getId(){
+		return $this->id;
+	}
+	function setId($id){
+		$this->id = $id;
 	}
 }

@@ -3,24 +3,32 @@
 class Agendamento {
 	
 	private $id;
+	private $timestampRegistro;
 	private $cliente; //Cliente.php
 	private $profissional; //Profissional.php
 	private $servico; //Servicos.php
-	private $horaInicial;
-	private $horaFinal;
+	private $timestampInicial;
+	private $timestampFinal;
 	private $ativo;
 	private $finalizado;
 
-	function __construct($id, $cliente, $profissional, $listaServicos, $horaInicial, $horaFinal, $ativo, $finalizado){
+	function __construct($id, $cliente, $profissional, $servico, $timestampInicial, $timestampFinal, $ativo, $finalizado){
+		$this->id = $id;
 		$this->cliente = $cliente;
 		$this->profissional = $profissional;
-		$this->listaServicos = $listaServicos;
-		$this->horaInicial = $horaInicial;
-		$this->horaFinal = $horaFinal;
+		$this->servico = $servico;
+		$this->timestampInicial = $timestampInicial;
+		$this->timestampFinal = $timestampFinal;
 		$this->ativo = $ativo;
 		$this->finalizado = $finalizado;
 	}
 
+	function getId(){
+		return $this->id;
+	}
+	function getTimestampRegistro(){
+		return $this->timestampRegistro;
+	}
 	function getCliente(){
 		return $this->cliente;
 	}
@@ -30,11 +38,11 @@ class Agendamento {
 	function getServico(){
 		return $this->servico;
 	}
-	function getHoraInicial(){
-		return $this->horaInicial;
+	function getTimestampInicial(){
+		return $this->timestampInicial;
 	}
-	function getHoraFinal(){
-		return $this->horaFinal;
+	function getTimestampFinal(){
+		return $this->timestampFinal;
 	}
 	function getAtivo(){
 		return $this->ativo;
@@ -43,6 +51,9 @@ class Agendamento {
 		return $this->finalizado;
 	}
 
+	function setId($id){
+		$this->id = $id;
+	}
 	function setCliente($cliente){
 		$this->cliente = $cliente;
 	}
@@ -52,11 +63,11 @@ class Agendamento {
 	function setServico($servico){
 		$this->servico = $servico;
 	}
-	function setHoraInicial($horaInicial){
-		$this->horaInicial = $horaInicial;
+	function setTimestampInicial($timestampInicial){
+		$this->timestampInicial = $timestampInicial;
 	}
-	function setHoraFinal($horaFinal){
-		$this->horaFinal = $horaFinal;
+	function setTimestampFinal($timestampFinal){
+		$this->timestampFinal = $timestampFinal;
 	}
 	function setAtivo($ativo){
 		$this->ativo = $ativo;

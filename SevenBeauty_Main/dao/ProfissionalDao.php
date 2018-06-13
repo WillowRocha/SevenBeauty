@@ -6,7 +6,7 @@ class ProfissionalDao extends Dao {
 
 	function __construct(){
 		parent::__construct("funcionarios");
-		$this->$nome_tabela_aux = "profissionais_servicos";
+		$this->nome_tabela_aux = "profissionais_servicos";
 	}
 
 	function save($profissional){
@@ -56,13 +56,13 @@ class ProfissionalDao extends Dao {
 	}
 	
 	function fetchObjeto($row){
-		$id = $row['id_funcionario'];
+		$id = $row['id'];
 
 		$dao = new FuncionarioDao();
 		$funcionario = $dao->buscaById($id);
 		if(!$funcionario) return FALSO;
 		
-		$idPessoa = $function->getIdPessoa();
+		$idPessoa = $funcionario->getIdPessoa();
 		$nome = $funcionario->getNome();
 		$sobrenome = $funcionario->getSobrenome();
 		$telefone = $funcionario->getTelefone();
@@ -72,10 +72,11 @@ class ProfissionalDao extends Dao {
 		$cpf = $funcionario->getCPF();
 		$cargo = $funcionario->getCargo();
 		$ativo = $funcionario->getAtivo();
+		$usuario = $funcionario->getUsuario();
 
 		$listaServicos = $this->buscaListaServicos($id);
 
-		return new Profissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos);
+		return new Profissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos, $usuario);
 	}
 
 	function buscaListaServicos($idFuncionario){
@@ -86,8 +87,8 @@ class ProfissionalDao extends Dao {
 			$servicos = [];
 			for($i=0; $i < $num_rows; $i++){
 	            $row = mysqli_fetch_array($result);
-	            $dao = new Servico();
-	            $servico = $dao->buscaById($result['id_servico']);
+	            $dao = new ServicoDao();
+	            $servico = $dao->buscaById($row['id_servico']);
 	            array_push($servicos, $servicos);
 	        }
 	        return $servicos;

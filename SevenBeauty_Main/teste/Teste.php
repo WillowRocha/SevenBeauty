@@ -2,6 +2,21 @@
 require_once("../includes.php");
 
 Class Foo {
+
+	function toTimestamp($day, $month, $year, $hour, $minute){
+		$second = 0;
+		return mktime($hour,$minute,$second,$month,$day,$year);
+	}
+
+	function mysql_datetime_para_timestamp($dt) {
+    $yr=strval(substr($dt,6,4));
+    $mo=strval(substr($dt,3,2));
+    $da=strval(substr($dt,0,2));
+    $hr=strval(substr($dt,13,2));
+    $mi=strval(substr($dt,16,2));
+    $se=strval(substr($dt,19,2));
+    return mktime($hr,$mi,$se,$mo,$da,$yr);
+}
 	
 	function trasServicosTeste(){
 		$dao = new ServicoDao();
@@ -16,6 +31,20 @@ Class Foo {
 		$result = $dao->buscaAtivos();
 		echo "<p>Result: ";
 		print_r($result);
+		echo "<br>";
+	}
+
+	function trasAgendamentosTeste(){
+		$dao = new AgendamentoDao();
+		$result = $dao->buscaAtivos();
+		$agendamento = $result[2];
+		echo $agendamento->getTimestampInicial()."<br>";
+		$final =  $agendamento->getTimestampFinal()."<br>";
+		echo $final."<br>";
+		echo strtotime('2018-06-12 10:30:00');
+		echo strtotime($final);
+		echo "<p>Result: ";
+		print_r($agendamento);
 		echo "<br>";
 	}
 
@@ -136,6 +165,29 @@ Class Foo {
 		echo "<br>Result: ". $result. "<br>";
 	}
 
+	function insereFormaPagamentoTeste(){
+		$dao = new FormaPagamentoDao();
+		$modelList = new FormaPagamento(0, "Dinheiro");
+		$result =  $dao->save($model);
+		echo "<br>Result: ". $result. "<br>";
+	}
+
+	function insereAgendamentoTeste(){
+		$dao = new AgendamentoDao();
+		$clienteDao = new ClienteDao();
+		$cliente = $clienteDao->buscaById(1);
+		$profissionalDao = new ProfissionalDao();
+		$profissional = $profissionalDao->buscaById(1);
+		$servicoDao = new ServicoDao();
+		$servico = $servicoDao->buscaById(1);
+		$horaInicial = $this->toTimestamp(12,06,2018,22,30);
+		$plus = "+".$servico->getDuracao()." minutes";
+		$horaFinal = $horaInicial + strtotime($plus, $horaInicial);
+
+		$agendamento = new Agendamento(0, $cliente, $profissional, $servico, $horaInicial, $horaFinal, ATIVO, ESTORNADO-1);
+		$result = $dao->save($agendamento);
+		echo "<br>Result: ". $result. "<br>";
+	}
 }
 
 $foo = new Foo();
@@ -150,8 +202,33 @@ $foo = new Foo();
 //$foo->insereCargoTeste();
 //$foo->insereProfissionalTeste();
 //$foo->insereGerenteTeste();
+//$foo->insereFormaPagamentoTeste();
+//$foo->insereAgendamentoTeste();
+//echo $foo->toTimestamp(12,06,2018,22,30);
+$foo->trasAgendamentosTeste();
 
-echo "Nada";
+echo "<br>Nada";
+
+
+
+
+
+/*
+//echo mktime($hour,$minute,$second,$month,$day,$year)."<br>";
+//echo $foo->mysql_datetime_para_timestamp(time());
+
+//Busca as datas livres no banco de dados em Timestamp
+//Transforma a para data com date("d", $timestamp), date("Y", $timestamp) e date("m", $timestamp);
+//	e salva o timestamp no select para usar depois quando for salvar
+//Mandar a data pro objeto em formato timestamp.
+
+//$timestamp = date_default_timezone_set('America/Sao_Paulo');
+$timestamp = time();
+echo date("d",$timestamp)."/".date("m", $timestamp)."/".date("Y", $timestamp);
+
+$timestamp = date_default_timezone_set('America/Sao_Paulo');
+$timestamp = time();
+echo date("d",$timestamp)."/".date("m", $timestamp)."/".date("Y", $timestamp);*/
 
 
 

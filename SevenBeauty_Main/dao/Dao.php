@@ -40,7 +40,7 @@ class Dao {
 		return ;
 	}
 	function buscaAtivos(){
-		$query = $this->buscaTodosPorPropriedade("ativo", VERDADEIRO);
+		$query = $this->buscaPorPropriedade("ativo", VERDADEIRO);
 		$result = $this->db->selectMultiple($query);
 		if($result){
 			$num_rows = mysqli_num_rows($result);

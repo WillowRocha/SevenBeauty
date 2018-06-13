@@ -6,7 +6,7 @@ class Lancamento {
 	private $agendamento; //Agendamento.php
 	private $desconto;
 	private $tipoDesconto; // % ou $
-	private $estornado;
+	private $cancelado;
 	private $finalizado;
 
 	function __construct($id, $agendamento, $servico, $precoTotal, $desconto, $tipoDesconto, $finalizado){
@@ -29,8 +29,8 @@ class Lancamento {
 	function getTipoDesconto(){
 		return $this->tipoDesconto;
 	}
-	function getEstornado(){
-		return $this->estornado;
+	function getCancelado(){
+		return $this->cancelado;
 	}
 	function getFinalizado(){
 		return $this->finalizado;
@@ -48,8 +48,8 @@ class Lancamento {
 	function setTipoDesconto($tipoDesconto){
 		$this->tipoDesconto = $tipoDesconto;
 	}
-	function setEstornado($estornado){
-		$this->estornado = $estornado;
+	function setCancelado($cancelado){
+		$this->cancelado = $cancelado;
 	}
 	function setFinalizado($finalizado){
 		$this->finalizado = $finalizado;

@@ -6,6 +6,7 @@ class Baixa {
 	private $lancamento; //Lancamento.php
 	private $valor;
 	private $formaPagamento; //FormaPagamento.php
+	private $estornado;
 
 	function __construct($id, $lancamento, $valor, $formaPagamento){
 		$this->id = $id;
@@ -26,7 +27,13 @@ class Baixa {
 	function getFormaPagamento(){
 		return $this->formaPagamento;
 	}
+	function getEstornado(){
+		return $this->estornado;
+	}
 
+	function setId($id){
+		$this->id = $id;
+	}
 	function setLancamento($lancamento){
 		$this->lancamento = $lancamento;
 	}
@@ -36,7 +43,7 @@ class Baixa {
 	function setFormaPagamento($formaPagamento){
 		$this->formaPagamento = $formaPagamento;
 	}
-	function setId($id){
-		$this->id = $id;
+	function setEstornado($estornado){
+		$this->estornado = $estornado;
 	}
 }
