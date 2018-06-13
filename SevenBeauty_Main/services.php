@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-  <?php require_once("head.php") ?>
+  <?php 
+  require_once("includes.php");
+  require_once("head.php"); 
+  ?>
 </head>
 
 <body>
@@ -65,47 +68,54 @@
         <!--Grid row-->
         <div class="row wow fadeIn">
 
-          <!--Grid column-->
-          <div class="col-lg-3 col-md-6 mb-4">
+          <?php 
+            $dao = new ServicoDao();
+            $servicos = $dao->buscaAtivos();
 
-            <!--Card-->
-            <div class="card">
+            foreach($servicos as $servico):
+          ?>
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4">
 
-              <!--Card image-->
-              <div class="view overlay">
-                <img src="img/beauty/services/service1.jpg" class="card-img-top" alt="">
-                <a>
-                  <div class="mask rgba-white-slight"></div>
-                </a>
+              <!--Card-->
+              <div class="card">
+
+                <!--Card image-->
+                <div class="view overlay">
+                  <img src="img/beauty/services/service<?php echo $servico->getId(); ?>.jpg" class="card-img-top" alt="">
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--Card image-->
+
+                <!--Card content-->
+                <div class="card-body text-center">
+                  <!--Category & Title-->
+                  <a href="" class="grey-text">
+                    <h5><?php echo $servico->getNome(); ?></h5> <!--Buscar no Banco de Dados-->
+                  </a>
+                  <h5>
+                    <strong>
+                      <a href="" class="dark-grey-text"><?php echo $servico->getNome(); ?> <!--Buscar no Banco de Dados-->
+                        <span class="badge badge-pill danger-color">NEW</span> <!--Buscar no Banco de Dados pela data de adição-->
+                      </a>
+                    </strong>
+                  </h5>
+
+                  <h4 class="font-weight-bold blue-text">
+                    <strong><?php echo $servico->getPreco(); ?></strong> <!--Buscar no Banco de Dados-->
+                  </h4>
+
+                </div>
+                <!--Card content-->
+
               </div>
-              <!--Card image-->
-
-              <!--Card content-->
-              <div class="card-body text-center">
-                <!--Category & Title-->
-                <a href="" class="grey-text">
-                  <h5>Corte Feminino</h5> <!--Buscar no Banco de Dados-->
-                </a>
-                <h5>
-                  <strong>
-                    <a href="" class="dark-grey-text">Corte alguma coisa <!--Buscar no Banco de Dados-->
-                      <span class="badge badge-pill danger-color">NEW</span> <!--Buscar no Banco de Dados pela data de adição-->
-                    </a>
-                  </strong>
-                </h5>
-
-                <h4 class="font-weight-bold blue-text">
-                  <strong>R$ 40,00</strong> <!--Buscar no Banco de Dados-->
-                </h4>
-
-              </div>
-              <!--Card content-->
+              <!--Card-->
 
             </div>
-            <!--Card-->
-
-          </div>
-          <!--Grid column-->
+            <!--Grid column-->
+        <?php endforeach; ?>
 
         </div>
         <!--Grid row-->

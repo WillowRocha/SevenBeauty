@@ -192,7 +192,7 @@ Class Foo {
 
 $foo = new Foo();
 //$foo->insereServicoTeste();
-//$foo->trasServicosTeste();
+$foo->trasServicosTeste();
 //$foo->insereUnidadeMedidaTeste();
 //$foo->insereCategoriaProdutoTeste();
 //$foo->insereProdutoTeste();
@@ -205,7 +205,7 @@ $foo = new Foo();
 //$foo->insereFormaPagamentoTeste();
 //$foo->insereAgendamentoTeste();
 //echo $foo->toTimestamp(12,06,2018,22,30);
-$foo->trasAgendamentosTeste();
+//$foo->trasAgendamentosTeste();
 
 echo "<br>Nada";
 
