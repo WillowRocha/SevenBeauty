@@ -79,16 +79,14 @@
         <?php
           if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])):
         ?>
-            <li class="nav-item">
-              <a href="<?php echo USER_INFO ?>" class="nav-link border border-light rounded">
-                Bem vindo, <?php echo $_SESSION['current_user'] ?>
-              </a>
-            </li>
-            <li class="nav-item" style="padding: 0 0 0 10px;">
-                <a href="<?php echo LOGOUT ?>" class="nav-link border border-light rounded">
-                  Sair
-                </a>
-              </li>
+          <div class="btn-group nav-item">
+            <a  class="nav-link border border-light rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Bem Vindo, <?php echo $_SESSION['current_user'] ?></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Minha conta</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="<?php echo LOGOUT ?>">Sair</a>
+            </div>
+          </div>
         <?php 
           elseif(!strcasecmp($paginaLink, LOGIN)): 
             session_destroy();  

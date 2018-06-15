@@ -17,7 +17,7 @@ class LoginService {
 		if($usuario){
 			if(!strcmp($usuario->getSenha(), $this->senha)){
 				session_start();
-				$_SESSION['current_user'] = ucfirst($usuario->getNome());
+				$_SESSION['current_user'] = $usuario->getNome();
 				$_SESSION['access_level'] = $usuario->getNivelAcesso();
 				return VERDADEIRO;
 			}

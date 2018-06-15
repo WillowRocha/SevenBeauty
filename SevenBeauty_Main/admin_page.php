@@ -35,7 +35,7 @@
       <!--Grid row-->
 
       <!--Grid row-->
-      <div class="row text-center wow fadeIn">
+      <div class="row text-center wow fadeIn" hidden="true">
 
         <!--Grid column-->
         <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 mb-4">
