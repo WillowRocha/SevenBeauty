@@ -4,7 +4,7 @@
   <?php require_once("head.php") ?>
 </head>
 
-<body style="background: url('img/beauty/capa04.jpg'); background-color: #1c2331; background-repeat: no-repeat; background-size: cover;">
+<body style="background-color: #1c2331; background-image: url('img/beauty/admin_background.jpg');background-size: cover;">
 
   <?php require_once("navbar.php") ?>
 
@@ -16,7 +16,7 @@
       <div class="row">
 
         <!--Grid column-->
-        <div class="col-md-8 mb-4">
+        <div class="offset-md-2 col-md-8 mb-4">
 
           <!--Card-->
           <div class="card">
@@ -25,15 +25,15 @@
             <div class="card-body">
 
                 <!-- Form -->
-                <form name="" <?php echo 'action="'.SERVICE_REGISTER_CLIENT.'"' ?> method="POST">
+                <form name="" action="<?php echo ROUTE.SERVICE_REGISTER_EMPLOYEE ?>" method="POST">
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
-                    <strong>Cadastrar Cliente</strong>
+                    <strong>Cadastrar Funcionário</strong>
                   </h3> 
                   <?php if(isset($_GET['success']) && $_GET['success'] == 1): ?>
-                  <div class="col-md-12 text-center green-text">Cliente cadastrado com sucesso!</div>
+                  <div class="col-md-12 text-center green-text">Funcionário cadastrado com sucesso!</div>
                   <?php elseif(isset($_GET['success']) && $_GET['success'] == 0): ?>
-                  <div class="col-md-12 text-center red-text">Erro ao cadastrar cliente!</div>
+                  <div class="col-md-12 text-center red-text">Erro ao cadastrar funcionário!</div>
                   <?php endif; ?>
 
                   <!--Grid row-->
@@ -44,7 +44,7 @@
 
                       <!--firstName-->
                       <div class="md-form ">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Digite seu nome">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Nome">
                         <label for="firstName" class="">Nome</label>
                       </div>
 
@@ -56,7 +56,7 @@
 
                       <!--lastName-->
                       <div class="md-form">
-                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Digite seu sobrenome">
+                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Sobrenome">
                         <label for="lastName" class="">Sobrenome</label>
                       </div>
 
@@ -75,7 +75,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="username">@</span>
                         </div>
-                        <input type="text" class="form-control py-0" name="username" placeholder="Usuário" aria-describedby="username">
+                        <input type="text" class="form-control py-0" name="username" placeholder="Digite um nome de usuário" aria-describedby="username">
                       </div>
                     </div>
                     <!--Grid column-->
@@ -83,7 +83,7 @@
                       <!--email-->
                       <div class="md-form mb-5">
                         <input type="text" id="email" name="email" class="form-control" placeholder="exemplo@examplo.com">
-                        <label for="email" class="">E-mail (opcional)</label>
+                        <label for="email" class="">E-mail (opinicional)</label>
                       </div>
                     </div>
                   </div>
@@ -122,14 +122,14 @@
                       <!--address-->
                       <div class="md-form mb-5">
                         <input type="text" id="rg" name="rg" class="form-control" placeholder="1234567890">
-                        <label for="address" class="">Registro Geral (opicional)</label>
+                        <label for="address" class="">Registro Geral</label>
                       </div>
                     </div>
                     <div class="col-4">
                       <!--Bairro-->
                       <div class="md-form mb-5">
                         <input type="text" id="cpf" name="cpf" class="form-control" placeholder="123.456.789-09">
-                        <label for="address" class="">CPF (opicional)</label>
+                        <label for="address" class="">CPF</label>
                       </div>
                     </div>
                     
@@ -150,10 +150,20 @@
                         <label for="address-2" class="">Data de nascimento (opcional)</label>
                       </div>
                     </div>
-                     <div class="col-8">
+                    <div class="col-4">
                       <div class="md-form mb-5">
-                        <input type="text" id="workplace" name="workplace" class="form-control" placeholder="Onde você trabalha?">
-                        <label for="address-2" class="">Local de Trabalho</label>
+                        <label>Cargo</label>
+                        <input type="text" id="" name="" class="form-control" hidden="" placeholder="dd/mm/aaaa">
+                        <select class="mdb-select form-control" name="cargo" style="border: none; border-bottom: 1px solid grey">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <?php 
+                              $dao = new CargoDao();
+                              $cargos = $dao->buscaCargos();
+                              foreach ($cargos as $cargo):
+                            ?>
+                            <option value="<?php echo $cargo->getId() ?>"><?php echo $cargo->getNome() ?></option>
+                          <?php endforeach; ?>
+                        </select>
                       </div>
                     </div>
                   </div>

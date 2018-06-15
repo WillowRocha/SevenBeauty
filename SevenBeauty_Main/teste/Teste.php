@@ -101,10 +101,10 @@ Class Foo {
 		$daoCategoria = new CategoriaServicoDao();
 		$categoria = $daoCategoria->buscaById(2);
 		if($categoria){
-			$servico = new Servico(0,"Progressiva", $categoria, 250, 180, ATIVO);
+			$servico = new Servico(1,"Pintar Unhas", $categoria, 15, 45, ATIVO);
 			if($servico){
 				$result = $daoServico->save($servico);
-				echo $result;
+				echo "Result: ".$result;
 			} else {
 				echo "Erro no Servico!";
 			}
@@ -133,7 +133,7 @@ Class Foo {
 	function insereClienteTeste(){
 		$dao = new ClienteDao();
 		$usuario = new Usuario(1, "willow", "senha");
-		$cliente = new Cliente(1, 1, "Willow", "Rocha", "+55 (51) 9 9999-9999", "Rua Orfanatrófio, 555, Porto Alegre - RS", "1997-02-19", "1234567890", "012.456.789-00", ATIVO, "UniRitter", $usuario);
+		$cliente = new Cliente(1, 1, "Willow", "Rocha", "+55 (51) 9 9999-9999", "Rua Orfanatrófio, 555, Porto Alegre - RS", "1997-02-19", "1234567890", "123.456.789-09", ATIVO, "UniRitter", $usuario);
 		$result = $dao->save($cliente);
 		echo "<br>Result: ". $result. "<br>";
 	}
@@ -188,11 +188,19 @@ Class Foo {
 		$result = $dao->save($agendamento);
 		echo "<br>Result: ". $result. "<br>";
 	}
+	function insereUsuarioTeste(){
+		$dao = new UsuarioDao();
+		$model = new Usuario(20, "gerente", "", 2);
+		$result =  $dao->save($model);
+		echo "<br>Result: ". $result. "<br>";
+	}
+
+
 }
 
 $foo = new Foo();
 //$foo->insereServicoTeste();
-$foo->trasServicosTeste();
+//$foo->trasServicosTeste();
 //$foo->insereUnidadeMedidaTeste();
 //$foo->insereCategoriaProdutoTeste();
 //$foo->insereProdutoTeste();
@@ -206,6 +214,7 @@ $foo->trasServicosTeste();
 //$foo->insereAgendamentoTeste();
 //echo $foo->toTimestamp(12,06,2018,22,30);
 //$foo->trasAgendamentosTeste();
+$foo->insereUsuarioTeste();
 
 echo "<br>Nada";
 
@@ -230,7 +239,16 @@ $timestamp = date_default_timezone_set('America/Sao_Paulo');
 $timestamp = time();
 echo date("d",$timestamp)."/".date("m", $timestamp)."/".date("Y", $timestamp);*/
 
-
+/*
+	function novoNomeValido($servico, $novoNome){
+		$mudouNome = ($this->buscaById($servico->getId())->getNome() != $novoNome);
+		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
+		if($mudouNome && $novoNomeExiste){
+			return FALSO;
+		}
+		return VERDADEIRO;
+	}
+*/
 
 
 

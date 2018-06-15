@@ -4,10 +4,10 @@ class Cliente extends Pessoa {
 	
 	private $idPessoa;
 	private $usuario;
-	private $localDeTrabalho;
+	private $localDeTrabalho;	
 
-	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo, $localDeTrabalho, $usuario){
-		parent::__construct($id, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo);
+	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $ativo, $localDeTrabalho, $usuario){
+		parent::__construct($id, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $ativo);
 		$this->idPessoa = $idPessoa;
 		$this->usuario = $usuario;
 		$this->localDeTrabalho = $localDeTrabalho;

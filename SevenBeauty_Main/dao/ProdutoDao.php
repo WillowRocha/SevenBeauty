@@ -20,10 +20,14 @@ class ProdutoDao extends Dao {
 		$existe = $this->buscaByCodigoBarras($codigoBarras);
 		if(!$existe){
 			$query = "INSERT INTO ".$this->nome_tabela." (codigo_barras, nome, quantidade, id_unidade_medida, id_categoria_produto, estoque_minimo, ativo) VALUES (".$codigoBarras.", '".$nome."', ".$quantidade.", ".$id_unidade_medida.", ".$id_categoria_produto.", ".$estoque_minimo.", ".$ativo.");";
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		} else {
 			$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."', quantidade = ".$quantidade.", id_unidade_medida = ".$id_unidade_medida.", id_categoria_produto = ".$id_categoria_produto.", estoque_minimo= ".$estoque_minimo.", ativo = ".$ativo." WHERE codigo_barras = ".$codigoBarras.";";
 		}
-		return $this->db->insertOrUpdate($query);
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
 	function buscaByCodigoBarras($codigoBarras){

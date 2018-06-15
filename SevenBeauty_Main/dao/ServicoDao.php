@@ -10,32 +10,19 @@ class ServicoDao extends Dao {
 		$id = $servico->getId();
 		$nome = addslashes($servico->getNome());
 		$id_categoria_servico = $servico->getCategoria()->getId();
-		$preco = addslashes($servico->getPreco());
+		$preco = $servico->getPreco();
 		$duracao = addslashes($servico->getDuracao());
 		$ativo = $servico->getAtivo();
+		
 		if(!$id){
-			if($this->buscaIdPorPropriedade("nome", $nome)){
-				return ALREADY_EXISTS;
-			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome, id_categoria_servico, preco, duracao, ativo) VALUES ('".$nome."', ".$id_categoria_servico.", ".$preco.", ".$duracao.", ".$ativo.");";
-		} else {
-			$id = $servico->getId();
-			if($this->novoNomeValido($servico, $nome)){
-				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' id_categoria_servico = ".$id_categoria_servico." preco = ".$preco." duracao = ".$duracao." ativo = ".$ativo." WHERE id = ".$id.";";
-			} else {
-				return ALREADY_EXISTS;
-			}
-		}
-		return $this->db->insertOrUpdate($query);
-	}
-
-	function novoNomeValido($servico, $novoNome){
-		$mudouNome = ($this->buscaById($servico->getId())->getNome() != $novoNome);
-		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
-		if($mudouNome && $novoNomeExiste){
-			return FALSO;
-		}
-		return VERDADEIRO;
+				return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
+		} 
+		$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."', id_categoria_servico = ".$id_categoria_servico.", preco = ".$preco.", duracao = ".$duracao.", ativo = ".$ativo." WHERE id = ".$id.";";
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
 	function fetchObjeto($row){

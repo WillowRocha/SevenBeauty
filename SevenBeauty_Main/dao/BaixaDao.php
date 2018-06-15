@@ -15,7 +15,7 @@ class BaixaDao extends Dao {
 		
 		if(!$id){
 			$query = "INSERT INTO ".$this->nome_tabela." (valor, id_lancamento, id_forma_pagamento, ativo, finalizado) VALUES (".$valor.", ".$id_lancamento.", ".$id_forma_pagamento.", ".$ativo.", ".$finalizado.")";
-			return $this->db->insertOrUpdate($query);
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
 		return FALSO;
 	}

@@ -14,19 +14,14 @@ class FornecedorDao extends Dao {
 		$id_categoria_produtos = $fornecedor->getCategoriaProdutos()->getId();
 		$ativo = $fornecedor->getAtivo();
 		if(!$id){
-			if($this->buscaIdPorPropriedade("nome_empresa", $nomeEmpresa)){
-				return ALREADY_EXISTS;
-			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome_empresa, nome_consultor, telefone, id_categoria_produtos, ativo) VALUES ('".$nomeEmpresa."', '".$nomeConsultor."', '".$telefone."', ".$id_categoria_produtos.", ".$ativo.");";
-		} else {
-			$id = $fornecedor->getId();
-			if($this->novoNomeValido($fornecedor, $nomeEmpresa)){
-				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nomeEmpresa."', nome_consultor = '".$nomeConsultor."', telefone = '".$telefone."', id_categoria_produtos = ".$id_categoria_produtos.", ativo = ".$ativo." WHERE id = ".$id.";";
-			} else {
-				return ALREADY_EXISTS;
-			}
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		return $this->db->insertOrUpdate($query);
+		$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nomeEmpresa."', nome_consultor = '".$nomeConsultor."', telefone = '".$telefone."', id_categoria_produtos = ".$id_categoria_produtos.", ativo = ".$ativo." WHERE id = ".$id.";";
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
 	function novoNomeValido($fornecedor, $novoNome){

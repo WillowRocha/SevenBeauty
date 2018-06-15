@@ -12,6 +12,8 @@ class GerenteDao extends Dao {
 		$sobrenome = $gerente->getSobrenome();
 		$telefone = $gerente->getTelefone();
 		$endereco = $gerente->getEndereco();
+		$bairro = $gerente->getBairro();
+		$cidade = $gerente->getCidade();
 		$nascimento = $gerente->getNascimento();
 		$rg = $gerente->getRG();
 		$cpf = $gerente->getCPF();
@@ -20,31 +22,34 @@ class GerenteDao extends Dao {
 		$usuario = $gerente->getUsuario();
 		
 		$daoFuncionario = new FuncionarioDao();
-		$result = $daoFuncionario->save(new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo));
-		//TODO: Fazer verificacao em Pessoa para poder inserir Clientes e Funcionarios com a mesma pessoa, considerando que é uma atualizacaoo se o RG e CPF forem iguais.
-		if(!strcmp($result,ERRO_INSERCAO_FUNCIONARIO) || !strcmp($result, ERRO_INSERCAO_PESSOA) || !strcmp($result, PESSOA_JA_EXISTE)) return $result;
-		return $result;
+		$id_gerente = $daoFuncionario->save(new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo));
+		if(!$id_gerente)
+			return FALSE;
+		return $id_gerente;
 	}
 
 	function fetchObjeto($row){
-		$id = $row['id_funcionario'];
+		$id = $row['id'];
 
 		$dao = new FuncionarioDao();
 		$funcionario = $dao->buscaById($id);
 		if(!$funcionario) return FALSO;
 		
-		$idPessoa = $function->getIdPessoa();
+		$idPessoa = $funcionario->getIdPessoa();
 		$nome = $funcionario->getNome();
 		$sobrenome = $funcionario->getSobrenome();
 		$telefone = $funcionario->getTelefone();
 		$endereco = $funcionario->getEndereco();
+		$bairro = $funcionario->getBairro();
+		$cidade = $funcionario->getCidade();
 		$nascimento = $funcionario->getNascimento();
 		$rg = $funcionario->getRG();
 		$cpf = $funcionario->getCPF();
 		$cargo = $funcionario->getCargo();
 		$ativo = $funcionario->getAtivo();
+		$usuario = $funcionario->getUsuario();
 
-		return new Gerente($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo);
+		return new Gerente($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo);
 	}
 
 }

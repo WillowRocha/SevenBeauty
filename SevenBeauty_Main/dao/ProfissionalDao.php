@@ -16,6 +16,8 @@ class ProfissionalDao extends Dao {
 		$sobrenome = $profissional->getSobrenome();
 		$telefone = $profissional->getTelefone();
 		$endereco = $profissional->getEndereco();
+		$bairro = $profissional->getBairro();
+		$cidade = $profissional->getCidade();
 		$nascimento = $profissional->getNascimento();
 		$rg = $profissional->getRG();
 		$cpf = $profissional->getCPF();
@@ -24,26 +26,22 @@ class ProfissionalDao extends Dao {
 		$usuario = $profissional->getUsuario();
 		
 		$daoFuncionario = new FuncionarioDao();
-		$result = $daoFuncionario->save(new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo));
-		//TODO: Fazer verificacao em Pessoa para poder inserir Clientes e Funcionarios com a mesma pessoa, considerando que é uma atualizacaoo se o RG e CPF forem iguais.
-		if(!strcmp($result,ERRO_INSERCAO_FUNCIONARIO) || !strcmp($result, ERRO_INSERCAO_PESSOA) || !strcmp($result, PESSOA_JA_EXISTE)) return $result;
+		$idFuncionario = $daoFuncionario->save(new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo));
 
-		if($result){
-			$listaServicos = $profissional->getListaServicos();
-			$count = 0;
-			foreach ($listaServicos as $servico) {
-				$idServico = $servico->getId();
-				$existe = $this->buscaByIdComposto($id, $idServico);
-				if(!$existe){
-					$query = "INSERT INTO ".$this->nome_tabela_aux." (id_funcionario, id_servico) VALUES (".$id.", ".$idServico.");";
-					$status =  $this->db->insertOrUpdate($query);
-					if(!$status) return FALSE;
-					$count++;
-				}
+		$listaServicos = $profissional->getListaServicos();
+		$count = 0;
+		foreach ($listaServicos as $servico) {
+			$idServico = $servico->getId();
+			$existe = $this->buscaByIdComposto($id, $idServico);
+			if(!$existe){
+				$query = "INSERT INTO ".$this->nome_tabela_aux." (id_funcionario, id_servico) VALUES (".$id.", ".$idServico.");";
+				$status =  $this->db->insertOrUpdate($query);
+				if(!$status) 
+					return FALSE;
+				$count++;
 			}
-			return $count;
 		}
-		return ERRO_INSERCAO_PROFISSIONAL;
+		return $idFuncionario;
 	}
 
 	function buscaByIdComposto($idFuncionario, $idServico){
@@ -67,6 +65,8 @@ class ProfissionalDao extends Dao {
 		$sobrenome = $funcionario->getSobrenome();
 		$telefone = $funcionario->getTelefone();
 		$endereco = $funcionario->getEndereco();
+		$bairro = $funcionario->getBairro();
+		$cidade = $funcionario->getCidade();
 		$nascimento = $funcionario->getNascimento();
 		$rg = $funcionario->getRG();
 		$cpf = $funcionario->getCPF();
@@ -75,8 +75,7 @@ class ProfissionalDao extends Dao {
 		$usuario = $funcionario->getUsuario();
 
 		$listaServicos = $this->buscaListaServicos($id);
-
-		return new Profissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos, $usuario);
+		return new Profissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos, $usuario);
 	}
 
 	function buscaListaServicos($idFuncionario){
@@ -84,14 +83,14 @@ class ProfissionalDao extends Dao {
 		$result = $this->db->selectMultiple($query);
 		if($result){
 			$num_rows = mysqli_num_rows($result);
-			$servicos = [];
+			$ativos = [];
+			$dao = new ServicoDao();
 			for($i=0; $i < $num_rows; $i++){
 	            $row = mysqli_fetch_array($result);
-	            $dao = new ServicoDao();
 	            $servico = $dao->buscaById($row['id_servico']);
-	            array_push($servicos, $servicos);
+	            array_push($ativos, $servico);
 	        }
-	        return $servicos;
+	        return $ativos;
     	}
 		return FALSO;
 	}	

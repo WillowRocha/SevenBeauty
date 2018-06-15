@@ -10,28 +10,29 @@ class CargoDao extends Dao {
 		$id = $cargo->getId();
 		$nome = addslashes($cargo->getNome());
 		if(!$id){
-			if($this->buscaIdPorPropriedade("nome", $nome)){
-				return ALREADY_EXISTS;
-			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome) VALUES ('".$nome."')";
-		} else {
-			$id = $cargo->getId();
-			if($this->novoNomeValido($cargo, $nome)){
-				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
-			} else {
-				return ALREADY_EXISTS;
-			}
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		return $this->db->insertOrUpdate($query);
+		$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
-	function novoNomeValido($cargo, $novoNome){
-		$mudouNome = ($this->buscaById($cargo->getId())->getNome() != $novoNome);
-		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
-		if($mudouNome && $novoNomeExiste){
-			return FALSO;
-		}
-		return VERDADEIRO;
+	function buscaCargos(){
+		$query = $this->buscaTodos();
+		$result = $this->db->selectMultiple($query);
+		if($result){
+			$num_rows = mysqli_num_rows($result);
+			$objetos = [];
+			for($i=0; $i < $num_rows; $i++){
+	            $row = mysqli_fetch_array($result);
+	            array_push($objetos, $this->fetchObjeto($row));
+	        }
+	        return $objetos;
+    	}
+		return FALSO;
 	}
 
 	function fetchObjeto($row){

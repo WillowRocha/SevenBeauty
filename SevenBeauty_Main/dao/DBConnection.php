@@ -22,6 +22,10 @@ Class DBConnection{
 		mysqli_select_db($this->link, $this->database);
 		return TRUE;
 	}
+	
+	function query($query){
+		return mysqli_query($this->link, $query) ;//or die( mysqli_error( $this->link ));
+	}
 
 	function selectOne($query){
 		$result = $this->selectMultiple($query);
@@ -32,13 +36,13 @@ Class DBConnection{
 	}
 
 	function selectMultiple($query){
-		return mysqli_query($this->link, $query);
+		return $this->query($query);
 	}
 
 	function insertOrUpdate($query){
-		$status = mysqli_query($this->link, $query);
-		return $status;
+		return $this->query($query);
 	}
+
 
 
 }

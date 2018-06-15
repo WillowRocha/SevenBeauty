@@ -7,17 +7,21 @@ class Pessoa {
 	private $sobrenome;
 	private $telefone;
 	private $endereco;
+	private $bairro;
+	private $cidade;
 	private $nascimento;
 	private $rg;
 	private $cpf;
 	private $ativo;
 
-	function __construct($id, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo){
+	function __construct($id, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $ativo){
 		$this->id = $id;
 		$this->nome = $nome;
 		$this->sobrenome = $sobrenome;
 		$this->telefone = $telefone;
 		$this->endereco = $endereco;
+		$this->bairro = $bairro;
+		$this->cidade = $cidade;
 		$this->nascimento = $nascimento;
 		$this->rg = $rg;
 		$this->cpf = $cpf;
@@ -38,6 +42,12 @@ class Pessoa {
 	}
 	function getEndereco(){
 		return $this->endereco;
+	}
+	function getBairro(){
+		return $this->bairro;
+	}
+	function getCidade(){
+		return $this->cidade;
 	}
 	function getNascimento(){
 		return $this->nascimento;
@@ -66,6 +76,12 @@ class Pessoa {
 	}
 	function setEndereco($endereco){
 		$this->endereco = $endereco;
+	}
+	function setBairro($bairro){
+		$this->bairro = $bairro;
+	}
+	function setCidade($cidade){
+		$this->cidade = $cidade;
 	}
 	function setNascimento($nascimento){
 		$this->nascimento = $nascimento;

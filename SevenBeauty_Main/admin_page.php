@@ -4,7 +4,12 @@
 <head>
   <?php require_once("head.php") ?>
 </head>
-
+<?php 
+  require_once("includes.php");
+  if(!isset($_SESSION['access_level']) || (isset($_SESSION['access_level']) && $_SESSION['access_level'] < AC_PROFISSIONAL)){
+    header("location: ".ROUTE.HOME); 
+  }
+?>
 <body style="background-image: url('img/beauty/admin_background.jpg');  background-size: cover;">
 
   <?php require_once("navbar.php") ?>
@@ -54,19 +59,19 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Registar atendimento</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Registar atendimento</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Desmarcar atendimento</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Desmarcar atendimento</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear horários</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear horários</button></a>
                 </li>
               </ol>
 
@@ -101,19 +106,11 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Pesquisar</button>
+                  <a href="<?php echo LIST_CLIENTS ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Inativar</button>
+                  <a href="<?php echo REGISTER_CLIENT ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button></a>
                 </li>
               </ol>
 
@@ -125,54 +122,7 @@
         </div>
         <!--Grid column-->
       </div>
-
-      <!--Grid row-->
-      <div class="row text-center wow fadeIn">
-        <!--Grid column-->
-        <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 mb-4">
-
-          <!--Card-->
-          <div class="card">
-
-            <!-- Card header -->
-            <div class="card-header">
-              <a data-toggle="collapse" href="#professionalsCollapse">
-                <h4>
-                  <strong>Profissionais</strong>
-                </h4>
-              </a>
-            </div>
-
-            <!--Card content-->
-            <div class="card-body collapse" id="professionalsCollapse">
-
-              <ol class="list-unstyled mb-4">
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Pesquisar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Inativar</button>
-                </li>
-              </ol>
-
-            </div>
-
-          </div>
-          <!--/.Card-->
-
-        </div>
-        <!--Grid column-->
-      </div>
-
+    <?php if($_SESSION['access_level'] >= AC_GERENTE):  ?>
       <!--Grid row-->
       <div class="row text-center wow fadeIn">
         <!--Grid column-->
@@ -185,7 +135,7 @@
             <div class="card-header">
               <a data-toggle="collapse" href="#managerCollapse">
                 <h4>
-                  <strong>Gerentes</strong>
+                  <strong>Funcionários</strong>
                 </h4>
               </a>
             </div>
@@ -195,19 +145,11 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Pesquisar</button>
+                  <a href="<?php echo ROUTE.LIST_EMPLOYEES ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Inativar</button>
+                  <a href="<?php echo ROUTE.REGISTER_EMPLOYEE ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button></a>
                 </li>
               </ol>
 
@@ -244,19 +186,11 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Pesquisar</button>
+                  <a href="<?php echo ROUTE.LIST_PRODUCTS ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Inativar</button>
+                  <a href="<?php echo ROUTE.REGISTER_PRODUCT ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button></a>
                 </li>
               </ol>
 
@@ -292,19 +226,11 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Pesquisar</button>
+                  <a href="<?php echo ROUTE.LIST_SUPPLIERS ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Visualizar</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Bloquear</button>
-                </li>
-                <hr>
-                <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Inativar</button>
+                  <a href="<?php echo ROUTE.REGISTER_SUPPLIER ?>"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Cadastrar</button></a>
                 </li>
               </ol>
 
@@ -339,19 +265,19 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Caixa</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Caixa</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Agenda</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Agenda</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Produtos em Estoque</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Produtos em Estoque</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Novo Relatório</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Novo Relatório</button></a>
                 </li>
               </ol>
 
@@ -387,19 +313,19 @@
 
               <ol class="list-unstyled mb-4">
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Abrir caixa</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Abrir caixa</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Registar venda</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Registar venda</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Sangria</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Sangria</button></a>
                 </li>
                 <hr>
                 <li>
-                  <button type="button" class="btn btn-md btn-block btn-grey waves-effect">Fechar Caixa</button>
+                  <a href="#"><button type="button" class="btn btn-md btn-block btn-grey waves-effect">Fechar Caixa</button></a>
                 </li>
               </ol>
 
@@ -413,6 +339,14 @@
 
       </div>
       <!--Grid row-->
+    <?php else: ?>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    <?php endif; ?>
 
     </div>
   </main>

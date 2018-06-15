@@ -14,7 +14,9 @@ class Servico {
 		$this->nome = $nome;
 		$this->categoria = $categoria;
 		$this->preco = $preco;
-		$this->duracao = $this->setDuracao($duracao);
+		if($duracao < 0)
+			$duracao = $duracao*-1;
+		$this->duracao = $duracao;
 		$this->ativo = $ativo;
 	}
 
@@ -50,7 +52,8 @@ class Servico {
 		$this->preco = $preco;
 	}
 	function setDuracao($duracao){
-		if($duracao < 0) $duracao = $duracao*-1;
+		//if($duracao < 0) 
+			//$duracao = $duracao*-1;
 		$this->duracao = $duracao;
 	}
 	function setAtivo($ativo){

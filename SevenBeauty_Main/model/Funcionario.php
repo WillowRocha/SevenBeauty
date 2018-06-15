@@ -6,8 +6,8 @@ class Funcionario extends Pessoa {
 	private $usuario; // Usuario();
 	private $cargo; //Cargo();
 
-	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo){
-		parent::__construct($id, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo);
+	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo){
+		parent::__construct($id, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $ativo);
 		$this->idPessoa = $idPessoa;
 		$this->usuario = $usuario;
 		$this->cargo = $cargo;

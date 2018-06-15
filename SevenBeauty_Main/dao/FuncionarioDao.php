@@ -12,31 +12,44 @@ class FuncionarioDao extends Dao {
 		$sobrenome = $funcionario->getSobrenome();
 		$telefone = $funcionario->getTelefone();
 		$endereco = $funcionario->getEndereco();
+		$bairro = $funcionario->getBairro();
+		$cidade = $funcionario->getCidade();
 		$nascimento = $funcionario->getNascimento();
 		$rg = $funcionario->getRG();
 		$cpf = $funcionario->getCPF();
 		$ativo = $funcionario->getAtivo();
 		
 		$daoPessoa = new PessoaDao();
-		$result = $daoPessoa->save(new Pessoa($idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $ativo));
-		//TODO: Fazer verificacao em Pessoa para poder inserir Cliente e Funcionarios com a mesma pessoa, considerando que é uma atualizacaoo se o RG e CPF forem iguais.
-		if(!strcmp($result, PESSOA_JA_EXISTE) || !strcmp($result, ERRO_INSERCAO_PESSOA)) return $result; 
-
-		if($result){
-			$id = $funcionario->getId();
-			$idPessoa = $result;
-			$idUsuario = $this->checkUsuario($funcionario->getUsuario());
-			$idCargo = $funcionario->getCargo()->getId();
-			
-			$existe = $this->buscaById($id);
-			if(!$existe){
-				$query = "INSERT INTO ".$this->nome_tabela." (ativo, id_pessoa, id_usuario, id_cargo) VALUES (".$ativo.", ".$idPessoa.", ".$idUsuario.", ".$idCargo.");";
-				return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
-			}
-			$query = "UPDATE ".$this->nome_tabela." SET ativo = ".$ativo.", id_pessoa = ".$idPessoa.", id_usuario = ".$idUsuario.", id_cargo = ".$idCargo." WHERE id = ".$id.";";
-			return $this->db->insertOrUpdate($query);
+		$idPessoa = $daoPessoa->save(new Pessoa($idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $ativo));
+		
+		if(!$idPessoa) return FALSO;
+	
+		$id = $funcionario->getId();
+		$idUsuario = $this->checkUsuario($funcionario->getUsuario());
+		if(!$idUsuario) {
+			$daoUsuario = new UsuarioDao();
+			$idUsuario = $daoUsuario->save($funcionario->getUsuario());
 		}
-		return ERRO_INSERCAO_FUNCIONARIO;
+		$idCargo = $funcionario->getCargo()->getId();
+		
+		if(!$id){
+			if($idUsuario){
+				$query = "INSERT INTO ".$this->nome_tabela." (ativo, id_pessoa, id_usuario, id_cargo) VALUES (".$ativo.", ".$idPessoa.", ".$idUsuario.", ".$idCargo.");";
+			} else {
+				$query = "INSERT INTO ".$this->nome_tabela." (ativo, id_pessoa, id_cargo) VALUES (".$ativo.", ".$idPessoa.", ".$idCargo.");";
+			}
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
+
+		}
+		if($idUsuario) {
+			$query = "UPDATE ".$this->nome_tabela." SET ativo = ".$ativo.", id_pessoa = ".$idPessoa.", id_usuario = ".$idUsuario.", id_cargo = ".$idCargo." WHERE id = ".$id.";";
+		} else {
+			$query = "UPDATE ".$this->nome_tabela." SET ativo = ".$ativo.", id_pessoa = ".$idPessoa.", id_cargo = ".$idCargo." WHERE id = ".$id.";";
+		}
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
 	function fetchObjeto($row){
@@ -58,15 +71,17 @@ class FuncionarioDao extends Dao {
 		$sobrenome = $pessoa->getSobrenome();
 		$telefone = $pessoa->getTelefone();
 		$endereco = $pessoa->getEndereco();
+		$bairro = $pessoa->getBairro();
+		$cidade = $pessoa->getCidade();
 		$nascimento = $pessoa->getNascimento();
 		$rg = $pessoa->getRG();
 		$cpf = $pessoa->getCPF();
 
-		return new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo);
+		return new Funcionario($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo);
 	}
 
 	function checkUsuario($usuario){
-		if($usuario)
+		if($usuario->getId())
 			return $usuario->getId();
 		return 0;
 	}

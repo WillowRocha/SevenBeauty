@@ -10,28 +10,15 @@ class UnidadeMedidaDao extends Dao {
 		$id = $unidade_medida->getId();
 		$nome = addslashes($unidade_medida->getNome());
 		if(!$id){
-			if($this->buscaIdPorPropriedade("nome", $nome)){
-				return ALREADY_EXISTS;
-			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome) VALUES ('".$nome."')";
-		} else {
-			$id = $unidade_medida->getId();
-			if($this->novoNomeValido($unidade_medida, $nome)){
-				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
-			} else {
-				return ALREADY_EXISTS;
-			}
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		return $this->db->insertOrUpdate($query);
-	}
+		$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
 
-	function novoNomeValido($unidade_medida, $novoNome){
-		$mudouNome = ($this->buscaById($unidade_medida->getId())->getNome() != $novoNome);
-		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
-		if($mudouNome && $novoNomeExiste){
-			return FALSO;
-		}
-		return VERDADEIRO;
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 	
 	function fetchObjeto($row){

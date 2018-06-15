@@ -4,7 +4,7 @@
   <?php require_once("head.php") ?>
 </head>
 
-<body style="background: url('img/beauty/capa04.jpg'); background-color: #1c2331; background-repeat: no-repeat; background-size: cover;">
+<body style="background-color: #1c2331; background-image: url('img/beauty/admin_background.jpg');background-size: cover;">
 
   <?php require_once("navbar.php") ?>
 
@@ -16,7 +16,7 @@
       <div class="row">
 
         <!--Grid column-->
-        <div class="col-md-8 mb-4">
+        <div class="offset-md-2 col-md-8 mb-4">
 
           <!--Card-->
           <div class="card">
@@ -25,7 +25,7 @@
             <div class="card-body">
 
                 <!-- Form -->
-                <form name="" <?php echo 'action="'.SERVICE_REGISTER_CLIENT.'"' ?> method="POST">
+                <form name="" action="<?php echo SERVICE_REGISTER_PRODUCT ?>" method="POST">
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Cadastrar Cliente</strong>
@@ -44,7 +44,7 @@
 
                       <!--firstName-->
                       <div class="md-form ">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Digite seu nome">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Nome do cliente">
                         <label for="firstName" class="">Nome</label>
                       </div>
 
@@ -56,7 +56,7 @@
 
                       <!--lastName-->
                       <div class="md-form">
-                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Digite seu sobrenome">
+                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Sobrenome do cliente">
                         <label for="lastName" class="">Sobrenome</label>
                       </div>
 
@@ -75,7 +75,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="username">@</span>
                         </div>
-                        <input type="text" class="form-control py-0" name="username" placeholder="Usuário" aria-describedby="username">
+                        <input type="text" class="form-control py-0" name="username" placeholder="Digite um nome de usuário" aria-describedby="username">
                       </div>
                     </div>
                     <!--Grid column-->

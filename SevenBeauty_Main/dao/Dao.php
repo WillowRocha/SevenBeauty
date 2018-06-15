@@ -18,15 +18,8 @@ class Dao {
 		}
 		return FALSO;
 	}
-	function inativar($id){
-		return finalizarInativar($id, "ativo", FALSO);
-	}
-	function finalizar($id){
-		return finalizarInativar($id, "finalizado", VERDADEIRO);
-	}
-	function finalizarInativar($id, $coluna, $boolean){
-		$query = "UPDATE ".$this->nome_tabela." SET ".$coluna." = ".$boolean." WHERE id = ".$id.";";
-		return $this->db->insertOrUpdate($query);
+	function buscaTodos(){
+		return "SELECT * FROM ".$this->nome_tabela.";";
 	}
 	function buscaPorPropriedade($propriedade, $valor){
 		return "SELECT * FROM ".$this->nome_tabela." WHERE ".$propriedade ." = '".$valor."';";
@@ -37,7 +30,7 @@ class Dao {
 			$result = $this->db->selectOne($query);
 			return $result['last_id'];
 		}
-		return ;
+		return FALSO;
 	}
 	function buscaAtivos(){
 		$query = $this->buscaPorPropriedade("ativo", VERDADEIRO);

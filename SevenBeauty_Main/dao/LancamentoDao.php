@@ -15,10 +15,13 @@ class LancamentoDao extends Dao {
 		$finalizdo = $lancamento->getFinalizado();
 		if(!$id){
 			$query = "INSERT INTO ".$this->nome_tabela." (id_agendamento, desconto, tiposDesconto, cancelado, finalizado) VALUES (".$id_agendamento.", ".$desconto.", ".$tipoDesconto.", '".$cancelado.", ".$finalizado.")";
-		} else {
-			$query = "UPDATE ".$this->nome_tabela." SET id_agendamento=".$id_agendamento.", desconto =".$desconto.", tipos_desconto =".$tipoDesconto.", cancelado ='".$cancelado.", finalizado = ".$finalizado." WHERE id = ".$id.";";
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		return $this->db->insertOrUpdate($query);
+		$query = "UPDATE ".$this->nome_tabela." SET id_agendamento=".$id_agendamento.", desconto =".$desconto.", tipos_desconto =".$tipoDesconto.", cancelado ='".$cancelado.", finalizado = ".$finalizado." WHERE id = ".$id.";";
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 
 	function fetchObjeto($row){

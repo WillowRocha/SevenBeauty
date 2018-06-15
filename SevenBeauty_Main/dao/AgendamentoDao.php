@@ -18,11 +18,13 @@ class AgendamentoDao extends Dao {
 
 		if(!$id){
 			$query = "INSERT INTO ".$this->nome_tabela." (data_hora_registro, id_cliente, id_funcionario, id_servico, data_hora_inicial, data_hora_final, ativo, finalizado) VALUES ( NOW(), ".$id_cliente.", ".$id_profissional.", ".$id_servico.", '".$horaInicial."', '".$horaFinal."', ".$ativo.", ".$finalizado.")";
-		} else {
-			$query = "UPDATE ".$this->nome_tabela." SET id_cliente=".$id_cliente.", id_funcionario=".$id_profissional.", id_servico=".$id_servico.", data_hora_inicial= '".$horaInicial."', data_hora_final= '".$horaFinal."', ativo=".$ativo.", finalizado=".$finalizado.";";
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		echo $query;
-		return $this->db->insertOrUpdate($query);
+		$query = "UPDATE ".$this->nome_tabela." SET id_cliente=".$id_cliente.", id_funcionario=".$id_profissional.", id_servico=".$id_servico.", data_hora_inicial= '".$horaInicial."', data_hora_final= '".$horaFinal."', ativo=".$ativo.", finalizado=".$finalizado.";";
+		$status =  $this->db->insertOrUpdate($query);
+		if(!$status) 
+			return FALSE;
+		return $id;
 	}
 
 	function fetchObjeto($row){

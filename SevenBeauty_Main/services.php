@@ -34,18 +34,18 @@
           <!-- Links -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">All <!--Preencher com For com resultados do Banco de Dados -->
+              <a class="nav-link" href="#">Tudo <!--Preencher com For com resultados do Banco de Dados -->
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Shirts</a>
+              <a class="nav-link" href="#">Cabelos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sport wears</a>
+              <a class="nav-link" href="#">Unhas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Outwears</a>
+              <a class="nav-link" href="#">Massagem</a>
             </li>
 
           </ul>
@@ -53,7 +53,7 @@
 
           <form class="form-inline">
             <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+              <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Search">
             </div>
           </form>
         </div>
@@ -65,60 +65,89 @@
       <!--Section: Products v.3-->
       <section class="text-center mb-4">
 
-        <!--Grid row-->
-        <div class="row wow fadeIn">
+       
 
-          <?php 
-            $dao = new ServicoDao();
-            $servicos = $dao->buscaAtivos();
+        <?php 
+          $dao = new ServicoDao();
+          $servicos = $dao->buscaAtivos();
+          $size = count($servicos);
+          if($size <= 0) {
+            echo "Nenhum serviço encontrado.";
+            die();
+          }
 
-            foreach($servicos as $servico):
-          ?>
-            <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4">
+          $count = 1;
+          foreach($servicos as $servico):
+        ?>
+          <?php if($count%4 == 1): ?>
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+          <?php endif; ?>
+              
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4">
 
-              <!--Card-->
-              <div class="card">
+                <!--Card-->
+                <div class="card">
 
-                <!--Card image-->
-                <div class="view overlay">
-                  <img src="img/beauty/services/service<?php echo $servico->getId(); ?>.jpg" class="card-img-top" alt="">
-                  <a>
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <style>
+                      div.card-img-top {
+                        background-position: top center; 
+                        background-size: cover; 
+                        height: 530px;
+                      }
+                      /* responsive */
+                      @media (min-width: 980px) {
+                        div.card-img-top {
+                          height: 340px;
+                        } 
+                      }
+                    </style>
+                    <div class="card-img-top" alt="" style="background-image: url('img/beauty/services/service<?php echo $servico->getId(); ?>.jpg');"></div>
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                  <!--Card image-->
+
+                  <!--Card content-->
+                  <div class="card-body text-center">
+                    <!--Category & Title-->
+                    <a href="" class="grey-text">
+                      <h5><?php echo $servico->getNome(); ?></h5> <!--Buscar no Banco de Dados-->
+                    </a>
+                    <h5>
+                      <strong>
+                        <a href="" class="dark-grey-text"><?php echo $servico->getNome(); ?> <!--Buscar no Banco de Dados-->
+                          <span class="badge badge-pill danger-color">NEW</span> <!--Buscar no Banco de Dados pela data de adição-->
+                        </a>
+                      </strong>
+                    </h5>
+
+                    <h4 class="font-weight-bold blue-text">
+                      <strong><?php echo $servico->getPreco(); ?></strong> <!--Buscar no Banco de Dados-->
+                    </h4>
+
+                  </div>
+                  <!--Card content-->
+
                 </div>
-                <!--Card image-->
-
-                <!--Card content-->
-                <div class="card-body text-center">
-                  <!--Category & Title-->
-                  <a href="" class="grey-text">
-                    <h5><?php echo $servico->getNome(); ?></h5> <!--Buscar no Banco de Dados-->
-                  </a>
-                  <h5>
-                    <strong>
-                      <a href="" class="dark-grey-text"><?php echo $servico->getNome(); ?> <!--Buscar no Banco de Dados-->
-                        <span class="badge badge-pill danger-color">NEW</span> <!--Buscar no Banco de Dados pela data de adição-->
-                      </a>
-                    </strong>
-                  </h5>
-
-                  <h4 class="font-weight-bold blue-text">
-                    <strong><?php echo $servico->getPreco(); ?></strong> <!--Buscar no Banco de Dados-->
-                  </h4>
-
-                </div>
-                <!--Card content-->
+                <!--Card-->
 
               </div>
-              <!--Card-->
-
-            </div>
-            <!--Grid column-->
-        <?php endforeach; ?>
-
+              <!--Grid column-->
+        <?php if($count%4 == 0): ?>
         </div>
         <!--Grid row-->
+        <?php endif; ?>
+        <?php
+            $count++;
+          endforeach; 
+        ?>
+
+        
 
       </section>
       <!--Section: Products v.3-->

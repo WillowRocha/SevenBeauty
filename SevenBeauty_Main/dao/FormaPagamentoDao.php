@@ -9,28 +9,14 @@ class FormaPagamentoDao extends Dao {
 		$id = $formaPagamento->getId();
 		$nome = addslashes($formaPagamento->getNome());
 		if(!$id){
-			if($this->buscaIdPorPropriedade("nome", $nome)){
-				return ALREADY_EXISTS;
-			}
 			$query = "INSERT INTO ".$this->nome_tabela." (nome) VALUES ('".$nome."')";
-		} else {
-			$id = $formaPagamento->getId();
-			if($this->novoNomeValido($formaPagamento, $nome)){
-				$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
-			} else {
-				return ALREADY_EXISTS;
-			}
+			return $this->ultimoIdInserido($this->db->insertOrUpdate($query));
 		}
-		return $this->db->insertOrUpdate($query);
-	}
-
-	function novoNomeValido($formaPagamento, $novoNome){
-		$mudouNome = ($this->buscaById($formaPagamento->getId())->getNome() != $novoNome);
-		$novoNomeExiste = $this->buscaIdPorPropriedade("nome", $novoNome);
-		if($mudouNome && $novoNomeExiste){
-			return FALSO;
-		}
-		return VERDADEIRO;
+		$query = "UPDATE ".$this->nome_tabela." SET nome = '".$nome."' WHERE id = ".$id.";";
+		$status = $this->db->insertOrUpdate($query);
+		if(!$status)
+			return FALSE;
+		return $id;
 	}
 	
 	function fetchObjeto($row){

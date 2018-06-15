@@ -4,7 +4,7 @@
   <div class="container">
 
     <!-- Brand -->
-    <a class="navbar-brand" <?php echo 'href="'.HOME.'"' ?>>
+    <a class="navbar-brand" href="<?php echo HOME ?>">
       <strong>Seven Beauty</strong>
     </a>
 
@@ -24,58 +24,44 @@
 
       <!-- Left -->
       <ul class="navbar-nav mr-auto">
-        <li 
-          <?php 
-              if(!strcasecmp($paginaLink, HOME))
-                  $active = "active";
-                echo 'class="nav-item '.$active.'"';
-                $active = "";
-            ?>
-        >
-          <a class="nav-link" href= <?php echo '"'.HOME.'"'; ?>>Início</a>
+        <?php 
+          if(!strcasecmp($paginaLink, HOME)) $active = " active"; 
+        ?>
+        <li class="nav-item<?php echo $active ?>">
+        <?php $active = ""; ?>
+          <a class="nav-link" href="<?php echo ROUTE.HOME ?>">Início</a>
         </li>
-        <li 
-            <?php 
-              if(!strcasecmp($paginaLink, SERVICES))
-                  $active = "active";
-                echo 'class="nav-item '.$active.'"';
-                $active = "";
-            ?>
-          >
-          <a class="nav-link" href= <?php echo '"'.SERVICES.'"'; ?>>Serviços</a>
+        <?php 
+          if(!strcasecmp($paginaLink, SERVICES)) $active = " active"; 
+        ?>
+        <li class="nav-item <?php echo $active ?>">
+        <?php $active = ""; ?>
+          <a class="nav-link" href="<?php echo ROUTE.SERVICES ?>">Serviços</a>
         </li>
-        <li 
-          <?php 
-              if(!strcasecmp($paginaLink, CONTACT))
-                  $active = "active";
-                echo 'class="nav-item '.$active.'"';
-                $active = "";
-            ?>
-        >
-          <a class="nav-link" href= <?php echo '"'.CONTACT.'"'; ?>>Contato</a>
+        <?php 
+          if(!strcasecmp($paginaLink, CONTACT)) $active = " active"; 
+        ?>
+        <li class="nav-item<?php echo $active ?>">
+        <?php $active = ""; ?>
+          <a class="nav-link" href="<?php echo ROUTE.CONTACT ?>">Contato</a>
         </li>
-        <li 
-          <?php 
-              if(!strcasecmp($paginaLink, ABOUT))
-                  $active = "active";
-                echo 'class="nav-item '.$active.'"';
-                $active = "";
-            ?>
-        >
-          <a class="nav-link" href= <?php echo '"'.ABOUT.'"'; ?>>Sobre</a>
+        <?php 
+          if(!strcasecmp($paginaLink, ABOUT)) $active = " active"; 
+        ?>
+        <li class="nav-item<?php echo $active ?>">
+        <?php $active = ""; ?>
+          <a class="nav-link" href="<?php echo ABOUT ?>" >Sobre</a>
         <!--Fazer if para ver se tem permissões para tal-->
         </li>
-        <li 
+        <?php if(isset($_SESSION['access_level']) && $_SESSION['access_level'] >= AC_PROFISSIONAL): ?>
           <?php 
-              if(!strcasecmp($paginaLink, ADMIN))
-                  $active = "active";
-                echo 'class="nav-item '.$active.'"';
-                $active = "";
-            ?>
-        >
-          <a class="nav-link" href= <?php echo '"'.ADMIN.'"'; ?>>Área Adminitrativa</a>
-        </li>
-
+            if(!strcasecmp($paginaLink, ADMIN)) $active = " active"; 
+          ?>
+          <li class="nav-item<?php echo $active ?>">
+          <?php $active = ""; ?>
+            <a class="nav-link" href="<?php echo ADMIN ?>">Área Adminitrativa</a>
+          </li>
+        <?php endif; ?>
       </ul>
       
       <!-- Right -->
@@ -91,35 +77,38 @@
           </a>
         </li>
         <?php
-          if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])){
-            echo '<li class="nav-item">
-                    <a href="'.USER_INFO.'" class="nav-link border border-light rounded">
-                      Bem vindo, '.$_SESSION['current_user'].
-                    '</a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="'.LOGOUT.'" class="nav-link border border-light rounded">
-                        Sair
-                      </a>
-                    </li>';
-          } else {
-            if(!strcasecmp($paginaLink, LOGIN)){
-              echo '<li class="nav-item">
-                      <a href="'.REGISTER.'" class="nav-link border border-light rounded">
-                        Registre-se <i class="fa fa-sign-in mr-2"></i>
-                      </a>
-                    </li>
-              ';
-            } else {
-              echo '<li class="nav-item">
-                      <a href="'.LOGIN.'" class="nav-link border border-light rounded">
-                        Login <i class="fa fa-sign-in mr-2"></i>
-                      </a>
-                    </li>
-                ';
-            }
-          }
+          if(isset($_SESSION['logged']) && !strcmp($_SESSION['logged'], VERDADEIRO) && isset($_SESSION['current_user'])):
         ?>
+            <li class="nav-item">
+              <a href="<?php echo USER_INFO ?>" class="nav-link border border-light rounded">
+                Bem vindo, <?php echo $_SESSION['current_user'] ?>
+              </a>
+            </li>
+            <li class="nav-item" style="padding: 0 0 0 10px;">
+                <a href="<?php echo LOGOUT ?>" class="nav-link border border-light rounded">
+                  Sair
+                </a>
+              </li>
+        <?php 
+          elseif(!strcasecmp($paginaLink, LOGIN)): 
+            session_destroy();  
+        ?>
+          <li class="nav-item">
+            <a href="<?php echo REGISTER ?>" class="nav-link border border-light rounded">
+              Registre-se <i class="fa fa-sign-in mr-2"></i>
+            </a>
+          </li>
+          <?php 
+            else: 
+          ?>
+            <li class="nav-item">
+              <a href="<?php echo LOGIN ?>" class="nav-link border border-light rounded">
+                Entrar <i class="fa fa-sign-in mr-2"></i>
+              </a>
+            </li>
+          <?php 
+            endif;
+          ?>
       </ul>
     </div>
 

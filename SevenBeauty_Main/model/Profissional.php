@@ -4,8 +4,8 @@ class Profissional extends Funcionario {
 	
 	private $listaServicos; //List<Servico.php>
 
-	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos, $usuario){
-		parent::__construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo);
+	function __construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $ativo, $listaServicos, $usuario){
+		parent::__construct($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco,$bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, $ativo);
 		$this->listaServicos = $listaServicos;
 	}
 
