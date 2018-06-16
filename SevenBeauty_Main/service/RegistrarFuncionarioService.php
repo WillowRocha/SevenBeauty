@@ -71,9 +71,8 @@ if($nome && $sobrenome && $telefone && $endereco && $username && $rg && $cpf && 
 	if(!$id){
 		if($id_cargo == 1){
 			$class->novoGerente($idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, ATIVO);
-			
 		} else {
-			$class->novoProfissional($idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, ATIVO, $cargo, $usuario);
+			$class->novoProfissional($idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, ATIVO);
 		}
 	} else {
 		$page = EDIT_EMPLOYEE;
@@ -81,7 +80,7 @@ if($nome && $sobrenome && $telefone && $endereco && $username && $rg && $cpf && 
 			$class->atualizaGerente($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, ATIVO);
 		} else {
 			
-			$class->atualizaProfissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, ATIVO, $cargo, $usuario);
+			$class->atualizaProfissional($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $cargo, $usuario, ATIVO);
 		}
 	}
 	$status = ($id_cargo == 1) ? $class->salvarGerente() : $class->salvarProfissional();

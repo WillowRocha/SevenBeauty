@@ -118,16 +118,16 @@
                     <a href="" class="grey-text">
                       <h5><?php echo $servico->getNome(); ?></h5> <!--Buscar no Banco de Dados-->
                     </a>
-                    <h5>
+                    <?php /*<h5>
                       <strong>
                         <a href="" class="dark-grey-text"><?php echo $servico->getNome(); ?> <!--Buscar no Banco de Dados-->
                           <span class="badge badge-pill danger-color">NEW</span> <!--Buscar no Banco de Dados pela data de adição-->
                         </a>
-                      </strong>
+                      </strong> */?>
                     </h5>
 
                     <h4 class="font-weight-bold blue-text">
-                      <strong><?php echo $servico->getPreco(); ?></strong> <!--Buscar no Banco de Dados-->
+                      <strong>R$ <?php echo $servico->getPreco(); ?></strong> <!--Buscar no Banco de Dados-->
                     </h4>
 
                   </div>

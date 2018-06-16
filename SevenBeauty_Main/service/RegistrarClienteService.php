@@ -51,11 +51,12 @@ if($nome && $sobrenome && $telefone && $endereco && $localDeTrabalho && $usernam
 	$page = "";
 	$get = "";
 	if(!$id){
-		$usuario = new Usuario($idPessoa, $username, STD_PASSWORD, 0);
+		$usuario = new Usuario($idPessoa, $username, STD_PASSWORD, AC_CLIENTE);
 		$class->novo($idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $localDeTrabalho, $usuario);
 		$page = REGISTER_CLIENT;
 	} else {
-		$usuario = new Usuario($idUsuario, $username, STD_PASSWORD, 0);
+		$dao = new UsuarioDao();
+		$usuario = $dao->buscaById($idUsuario);
 		$class->atualiza($id, $idPessoa, $nome, $sobrenome, $telefone, $endereco, $bairro, $cidade, $nascimento, $rg, $cpf, $localDeTrabalho, $usuario);
 		$page = EDIT_CLIENT;
 	}

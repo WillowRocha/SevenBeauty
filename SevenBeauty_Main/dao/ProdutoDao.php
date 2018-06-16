@@ -34,7 +34,7 @@ class ProdutoDao extends Dao {
 		$query = $this->buscaPorIdQuery($codigoBarras);
 		$result = $this->db->selectOne($query);
 		if($result){
-			return $this->fetchProduto($result);
+			return $this->fetchObjeto($result);
 		}
 		return FALSE;
 	}

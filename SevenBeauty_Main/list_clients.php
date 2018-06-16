@@ -74,7 +74,7 @@
                                         <?php echo $cliente->getTelefone(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getEndereco(); ?>
+                                        <?php echo $cliente->getEndereco()." - ".$cliente->getBairro()." - ".$cliente->getCidade(); ?>
                                     </td>
                                     <td class="pt-3-half">
                                         <?php echo $cliente->getNascimento(); ?>
@@ -91,7 +91,7 @@
                                     <td>
                                         <span class="edit-client"><a href="<?php echo ROUTE.EDIT_CLIENT.'?client_id='.$cliente->getId() ?>"><button type="button" class="btn btn-yellow btn-rounded btn-sm my-0">Editar</button></a></span>
                                         <p></p>
-                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE_CLIENT.'?client_id='.$cliente->getId() ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
+                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE.'?identifier='.$cliente->getId().'&class=cliente' ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
                                     </td>
                                 </tr>
                                 <!-- This is our clonable table line -->

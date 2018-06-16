@@ -1,3 +1,6 @@
+<?php 
+  require_once("includes.php");
+?>
 <html lang="en">
 
 <head>
@@ -23,29 +26,51 @@
 
             <!--Card content-->
             <div class="card-body">
+                <?php
+                  if(isset($_GET['product_id'])){
+                    $id_produto = $_GET['product_id'];
+                  } elseif(isset($_GET['success']) && $_GET['success'] == 1) {
+                    echo "Sucesso ao editar produto!";
+                    die();
+                  } else if(isset($_GET['success']) && $_GET['success'] == 0){
+                    echo "Erro ao editar produto!";
+                    die();
+                  } else {
+                    echo "Algo deu errado";
+                    die();
+                  }
 
+                  $dao = new ProdutoDao();
+                  $produto = $dao->buscaByCodigoBarras($id_produto);
+                  if(!$produto){
+                    echo "Erro ao buscar produto!";
+                    die();
+                  }
+                ?>
                 <!-- Form -->
-                <form name="" action="<?php echo ROUTE.SERVICE_REGISTER_PRODUCT?>" method="POST">
+                <form name="" action="<?php echo ROUTE.SERVICE_REGISTER_PRODUCT."?client_id=".$produto->getCodigoBarras() ?>" method="POST">
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
-                    <strong>Cadastrar Produto</strong>
+                    <strong>Editar produto</strong>
                   </h3> 
                   <?php if(isset($_GET['success']) && $_GET['success'] == 1): ?>
-                    <div class="col-md-12 text-center green-text">Produto cadastrado com sucesso!</div>
+                  <div class="col-md-12 text-center green-text">Produto editado com sucesso!</div>
                   <?php elseif(isset($_GET['success']) && $_GET['success'] == 0): ?>
-                    <div class="col-md-12 text-center red-text">Erro ao cadastrar produto!</div>
+                  <div class="col-md-12 text-center red-text">Erro ao editar produto!</div>
                   <?php endif; ?>
                   
                   <!--Grid row-->
                   <div class="row">
 
+
                     <!--Grid column-->
                     <div class="col-7 mb-2">
                       <!--lastName-->
                       <div class="md-form">
-                        <input type="text" id="barcode" name="barcode" class="form-control" placeholder="Insira o código de barras">
+                        <input type="text" id="barcode" name="barcode" class="form-control" placeholder="Insira o código de barras" value="<?php echo $produto->getCodigoBarras()?>">
                         <label for="lastName" class="">Código de Barras</label>
                       </div>
+
                     </div>
                     <!--Grid column-->
                     
@@ -53,7 +78,8 @@
                     <div class="col-5 mb-2">
                       <!--firstName-->
                       <div class="md-form ">
-                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do produto">
+                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do produto"
+                        value="<?php echo $produto->getNome()?>">
                         <label for="firstName" class="">Nome</label>
                       </div>
 
@@ -69,29 +95,19 @@
                     <div class="col-md-2 col-sm-4">
                       <!--email-->
                       <div class="md-form mb-5">
-                        <input type="text" id="quantidade" name="quantidade" class="form-control" placeholder="Nº itens">
+                        <input type="text" id="quantidade" name="quantidade" class="form-control" placeholder="Nº itens" value="<?php echo $produto->getQuantidade()?>">
                         <label for="email" class="">Quantidade</label>
                       </div>
                     </div>
                     <!--Grid column-->
 
-                    <?php 
-                        $dao = new UnidadeMedidaDao();
-                        $unidades = $dao->buscaTodos();
-                     ?>
                     <!--Grid column-->
                     <div class="col-md-4 col-sm-6">
                       <div class="md-form mb-5">
                         <label>Un. Medida</label>
                         <input type="text" id="" name="" class="form-control" hidden="" placeholder="Ex.: Kilograma">
                         <select class="mdb-select form-control" name="medida" style="border: none; border-bottom: 1px solid grey">
-                          <?php 
-                            foreach ($unidades as $unidade):
-                          ?>
-                            <option value="<?php echo $unidade->getId() ?>"><?php echo $unidade->getNome() ?></option>
-                          <?php
-                            endforeach;
-                          ?>
+                            <option value="<?php echo $produto->getUnidadeMedida()->getId() ?>"><?php echo $produto->getUnidadeMedida()->getNome() ?></option>
                         </select>
                       </div>
                     </div>
@@ -101,28 +117,18 @@
                     <div class="col-md-2 col-sm-4">
                       <!--address-->
                       <div class="md-form mb-5">
-                        <input type="text" id="min_qtd" name="min_qtd" class="form-control" placeholder="Nº itens">
+                        <input type="text" id="min_qtd" name="min_qtd" class="form-control" placeholder="Nº itens" value="<?php echo $produto->getEstoqueMinimo()?>">
                         <label for="address" class="">Quant. Mínima</label>
                       </div>
                     </div>
                     
-                    <?php 
-                        $dao = new CategoriaProdutoDao();
-                        $categorias = $dao->buscaTodos();
-                     ?>
                     <!--Grid column-->
                     <div class="col-md-4 col-sm-6">
                       <div class="md-form mb-5">
                         <label>Categoria</label>
                         <input type="text" id="" name="" class="form-control" hidden="" placeholder="Ex.: Cabelo">
                         <select class="mdb-select form-control" name="categoria" style="border: none; border-bottom: 1px solid grey">
-                          <?php 
-                            foreach ($categorias as $categoria):
-                          ?>
-                            <option value="<?php echo $categoria->getId() ?>"><?php echo $categoria->getNome() ?></option>
-                          <?php
-                            endforeach;
-                          ?>
+                          <option value="<?php echo $produto->getCategoria()->getId() ?>"><?php echo $produto->getCategoria()->getNome() ?></option>
                         </select>
                       </div>
                     </div>
@@ -133,7 +139,9 @@
                 </form>
                 <!-- Form -->
               </div>
-              <!-- Card body -->
+
+        
+
         </div>
         <!--Grid column-->
 

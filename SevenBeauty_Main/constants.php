@@ -24,24 +24,17 @@ const EDIT_SUPPLIER 		= "edit_supplier.php";
 
 const LIST_CLIENTS 			= "list_clients.php";
 const LIST_EMPLOYEES 		= "list_employees.php";
-const LIST_PRODUCTS 		= "list_product.php";
+const LIST_PRODUCTS 		= "list_products.php";
 const LIST_SUPPLIERS 		= "list_suppliers.php";
 
 //CLASSES
 const SERVICE_REGISTER_CLIENT 		= "service/RegistrarClienteService.php";
-
 const SERVICE_REGISTER_EMPLOYEE 	= "service/RegistrarFuncionarioService.php";
-
 const SERVICE_REGISTER_PRODUCT 		= "service/RegistrarProdutoService.php";
 const SERVICE_REGISTER_SUPPLIER 	= "service/RegistrarFornecedorService.php";
 
-const SERVICE_REMOVE_CLIENT 		= "service/InativarClienteService.php";
+const SERVICE_REMOVE = "service/InativarService.php";
 
-const SERVICE_REMOVE_PROFESSIONAL 	= "service/InativarProfissionalService.php";
-const SERVICE_REMOVE_MANAGER 		= "service/InativarGerenteService.php";
-
-const SERVICE_REMOVE_PRODUCT 		= "service/InativarProdutoService.php";
-const SERVICE_REMOVE_SUPPLIER 		= "service/InativarFornecedorService.php";
 
 // PAGE TIILES
 const ABOUT_TITLE 			= "Sobre";

@@ -28,70 +28,66 @@
         
         <!-- Editable table -->
         <div class="card col-12">
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Clientes</h3>
+            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Produtos</h3>
             <div class="card-body">
                 <div id="table" class="table-editable">
-                    <span class="table-add float-right mb-3 mr-2"><a href="<?php echo ROUTE.REGISTER_CLIENT ?>" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                    <span class="table-add float-right mb-3 mr-2"><a href="<?php echo ROUTE.REGISTER_PRODUCT ?>" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></span>
                     
                     <?php 
                       if(isset($_GET['removed'])) 
                         if($_GET['removed'] > 0):
                     ?>
                     <div class="col-12 text-center green-text">
-                          Cliente removido com sucesso!
+                          Produto removido com sucesso!
                     </div>
                     <?php elseif($_GET['removed'] == 0): ?>
                       <div class="col-12 text-center red-text">
-                          Nenhum cliente removido.
+                          Nenhum produto removido.
                       </div>
                     <?php endif; ?>
                     <table class="table table-bordered table-responsive-md table-striped text-center">
                         <tr>
+                            <th class="text-center">Código de barras</th>
                             <th class="text-center">Nome</th>
-                            <th class="text-center">Telefone</th>
-                            <th class="text-center">Endereço</th>
-                            <th class="text-center">Nascimento</th>
-                            <th class="text-center">RG/CPF</th>
-                            <th class="text-center">Local de trabalho</th>
-                            <th class="text-center">Usuário</th>
+                            <th class="text-center">Quantidade</th>
+                            <th class="text-center">Unidade de medida</th>
+                            <th class="text-center">Categoria</th>
+                            <th class="text-center">Estoque mínimo</th>
                             <th class="text-center">Editar/Remover</th>
                         </tr>
                         <?php 
-                            $dao = new ClienteDao();
-                            $clientes = $dao->buscaAtivos();
-                            $size = count($clientes);
+                            $dao = new ProdutoDao();
+                            $produtos = $dao->buscaAtivos();
+                            $size = count($produtos);
                             if($size > 0):
                         ?>
                             <?php
                                 $count = 0;
-                                foreach($clientes as $cliente):
+                                foreach($produtos as $produto):
                             ?>
                                 <tr>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getNome()." ".$cliente->getSobrenome(); ?>
+                                        <?php echo $produto->getCodigoBarras() ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getTelefone(); ?>
+                                        <?php echo $produto->getNome(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getEndereco(); ?>
+                                        <?php echo $produto->getQuantidade(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getNascimento(); ?>
+                                        <?php echo $produto->getUnidadeMedida()->getNome(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getRG()."<p></p>".$cliente->getCPF(); ?>
+                                        <?php echo $produto->getCategoria()->getNome(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $cliente->getLocalDeTrabalho(); ?>
-                                    </td>
-                                    <td class="pt-3-half">
-                                        <?php echo $cliente->getUsuario()->getNome(); ?>
+                                        <?php echo $produto->getEstoqueMinimo(); ?>
                                     </td>
                                     <td>
-                                        <span class="edit-client"><a href="<?php echo ROUTE.EDIT_CLIENT.'?client_id='.$cliente->getId() ?>"><button type="button" class="btn btn-yellow btn-rounded btn-sm my-0">Editar</button></a></span>
+                                        <span class="edit-client"><a href="<?php echo ROUTE.EDIT_PRODUCT.'?product_id='.$produto->getCodigoBarras() ?>"><button type="button" class="btn btn-yellow btn-rounded btn-sm my-0">Editar</button></a></span>
                                         <p></p>
-                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE_CLIENT.'?client_id='.$cliente->getId() ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
+                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE.'?identifier='.$produto->getCodigoBarras().'&class=produto' ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
                                     </td>
                                 </tr>
                                 <!-- This is our clonable table line -->

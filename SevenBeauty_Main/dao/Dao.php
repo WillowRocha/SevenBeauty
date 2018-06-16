@@ -18,7 +18,7 @@ class Dao {
 		}
 		return FALSO;
 	}
-	function buscaTodos(){
+	function buscaTodosQuery(){
 		return "SELECT * FROM ".$this->nome_tabela.";";
 	}
 	function buscaPorPropriedade($propriedade, $valor){
@@ -53,5 +53,19 @@ class Dao {
 			return $this->fetchObjeto($result);
 		}
 		return FALSE;
+	}
+	function buscaTodos(){
+		$query = $this->buscaTodosQuery();
+		$result = $this->db->selectMultiple($query);
+		if($result){
+			$num_rows = mysqli_num_rows($result);
+			$ativos = [];
+			for($i=0; $i < $num_rows; $i++){
+	            $row = mysqli_fetch_array($result);
+	            array_push($ativos, $this->fetchObjeto($row));
+	        }
+	        return $ativos;
+    	}
+		return FALSO;
 	}
 }

@@ -11,6 +11,19 @@
 
   <?php require_once("navbar.php") ?>
 
+  <style>
+    div.view {
+      /*background-position: top center; */
+      background-size: cover; 
+    }
+    /* responsive */
+    @media (max-width: 980px) {
+      div.view {
+        background-size: auto;
+        background-position: 55%;
+      }
+    }
+  </style>
   <!-- Full Page Intro -->
   <div class="view" style="background-image: url('img/beauty/capa02.jpg'); background-repeat: no-repeat; background-size: cover;">
 

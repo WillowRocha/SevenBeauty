@@ -28,7 +28,7 @@
         
         <!-- Editable table -->
         <div class="card col-12">
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Clientes</h3>
+            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Funcionários</h3>
             <div class="card-body">
                 <div id="table" class="table-editable">
                     <span class="table-add float-right mb-3 mr-2"><a href="<?php echo ROUTE.REGISTER_EMPLOYEE ?>" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></span>
@@ -78,7 +78,7 @@
                                         <?php echo $funcionario->getTelefone(); ?>
                                     </td>
                                     <td class="pt-3-half">
-                                        <?php echo $funcionario->getEndereco(); ?>
+                                        <?php echo $funcionario->getEndereco()." - ".$funcionario->getBairro()." - ".$funcionario->getCidade(); ?>
                                     </td>
                                     <td class="pt-3-half">
                                         <?php echo $funcionario->getNascimento(); ?>
@@ -93,9 +93,9 @@
                                         <?php echo $funcionario->getUsuario()->getNome(); ?>
                                     </td>
                                     <td>
-                                        <span class="edit-client"><a href="<?php echo ROUTE.EDIT_EMPLOYEE.'?client_id='.$funcionario->getId() ?>"><button type="button" class="btn btn-yellow btn-rounded btn-sm my-0">Editar</button></a></span>
+                                        <span class="edit-client"><a href="<?php echo ROUTE.EDIT_EMPLOYEE.'?employee_id='.$funcionario->getId().'&job_position='.$funcionario->getCargo()->getId() ?>"><button type="button" class="btn btn-yellow btn-rounded btn-sm my-0">Editar</button></a></span>
                                         <p></p>
-                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE_EMPLOYEE.'?client_id='.$funcionario->getId() ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
+                                        <span class="remove-client"><a href="<?php echo ROUTE.SERVICE_REMOVE.'?identifier='.$funcionario->getId().'&job_position='.$funcionario->getCargo()->getId().'&class=funcionario' ?>"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Excluir</button></a></span>
                                     </td>
                                 </tr>
                                 <!-- This is our clonable table line -->

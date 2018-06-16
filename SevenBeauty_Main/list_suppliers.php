@@ -28,10 +28,10 @@
         
         <!-- Editable table -->
         <div class="card col-12">
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Clientes</h3>
+            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Fornecedores</h3>
             <div class="card-body">
                 <div id="table" class="table-editable">
-                    <span class="table-add float-right mb-3 mr-2"><a href="<?php echo ROUTE.REGISTER_CLIENT ?>" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                    <span class="table-add float-right mb-3 mr-2"><a href="<?php echo ROUTE.REGISTER_SUPPLIER ?>" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></span>
                     
                     <?php 
                       if(isset($_GET['removed'])) 

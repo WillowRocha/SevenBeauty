@@ -18,7 +18,7 @@
         <div class="container">
 
             <!--Section: Jumbotron-->
-            <section class="card gradient-custom wow fadeIn" style="background-image: url('img/beauty/about_01.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <section class="card gradient-custom wow fadeIn" style="background-image: url('img/beauty/about_01.jpg'); background-repeat: no-repeat; background-size: cover; ">
 
                 <!-- Content -->
                 <div class="card-body text-white text-center py-5 px-5 my-5">

@@ -21,7 +21,7 @@ class CargoDao extends Dao {
 	}
 
 	function buscaCargos(){
-		$query = $this->buscaTodos();
+		$query = $this->buscaTodosQuery();
 		$result = $this->db->selectMultiple($query);
 		if($result){
 			$num_rows = mysqli_num_rows($result);
